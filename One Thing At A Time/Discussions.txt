@@ -1,0 +1,83 @@
+
+============================================================
+						Text Conversation
+						03/29/2018
+============================================================
+Marcus:
+"... from Tyler's personal cache." Who is Tyler?
+Code is limping steadily along.
+It'll now take "w", "a", "d", or "s" commands and move you,
+then print your location, a description of it, your "status"
+(right now it just says "dirty"), and your inventory.
+
+I'd really like to draw a map, but I could use more story
+first so I can include places in the story. Unless you'd
+like to tailor your story to my map?
+
+Frank:
+Come up with a base map if you'd like and I can roll with it.
+I'll make descriptions of whatever places you stick on there
+
+Marcus:
+Who's Tyler?
+
+Frank:
+Filler name. I was thinking of turning him into a Solo-esque
+smuggler or arms dealer. Could be a her.
+He or she will probably be a douche baggy anti hero only out
+for themselves. Like Del Toro in the last Farce Wars movie.
+
+Marcus:
+Gotcha. Anti-hero, so he's a good guy? The "Elite Guard" too?
+Do they work for him?
+I'm kind of obsessing over this project at the moment.
+
+Frank:
+Good is used loosely. Elite Guard is definitely bad. But
+likely one of them will be a traitor (on the main characters
+side.) Tyler or whatever the name winds up being is double
+agent-y
+
+Marcus:
+Gotcha, so Tyler is supplying weapons to the bad guys? Is the
+elite guard a body of soldiers?
+
+Frank:
+Yeah. I was thinking along the lines of Roman Praetorians or
+the Imperial Guard.
+Hybridized with the SS
+
+Marcus:
+Gotcha - I love it. So like, MUCH tougher than your average
+combat encounter.
+
+Frank:
+Yes. I would use them for mini bosses. Their commander could
+be a boss.
+Call him Damien.
+
+Marcus:
+Mini-bosses, cool. I was kinda thinking along those lines.
+Damien is "a" boss. Is he the final boss, or are there people
+worse than him?
+
+
+==============================================================
+					Notes on phone convo
+						3/30/2018
+==============================================================
+
+Mutants - They are systematically hunted. There's a mutant
+city.
+
+There are several different "races" of mutants to choose
+between. Each has slightly different powers. Possibly
+slightly different back stories as well. The PC will be a
+mutant.
+
+Brute - strength based abilities.
+
+Seer or something - psyonic abilities.
+
+[Something] - Manipulates light. Force fields, magnification,
+etc.
