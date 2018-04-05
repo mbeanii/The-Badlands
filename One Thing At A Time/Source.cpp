@@ -69,10 +69,9 @@ public:
 class PC : public Character
 {
 public:
-	PC(vector<Object*> startingEquipment)
+	PC()
 	{
 		status = "dirty";
-		inventory = startingEquipment;
 	}
 
 	void printPCStatus() { cout << "You are " << status << "." << endl; }
@@ -200,10 +199,8 @@ public:
 	Location waste;
 	Location mountain;
 
-	StartArea(vector<Object> *rhs)
+	StartArea()
 	{
-		pMasterObjectList = rhs;
-
 		farm.name = "moisture farm";
 		farm.description =
 			"This moisture farm is designed to harvest water "
@@ -211,7 +208,6 @@ public:
 			"are the most precious resource in the world.";
 		farm.row = 0;
 		farm.col = 0;
-		farm.objectsHere.push_back(&(*pMasterObjectList)[SWORD]);
 
 		tower.name = "water tower";
 		tower.description = "This water tower is used by the farm for storage";
@@ -248,38 +244,68 @@ public:
 	vector<Object> masterObjectList;
 	vector<Object *> startingEquipment;
 	PC pc;
-	PC *ppc = &pc;
 	StartArea startArea;
-	Area * pCurrentArea = &startArea;
-	Location *pCurrentLocation = &startArea.farm;
+	Area * pCurrentArea;
+	Location *pCurrentLocation;
 	string move = "";
-	string *pMove = &move;
 
-	Game() : pc(startingEquipment), startArea(&masterObjectList)
-	{
-		Area * pCurrentArea = &startArea;
-		Location *pCurrentLocation = &startArea.farm;
-		string move = "";
-		string *pMove = &move;
-	}
-
+	Game();
+	void createObjects();
+	void printFullDescription();
+	void executeMove();
+	void getMove();
+	void parseMove();
+	void printIntro();
 };
 
-void printFullDescription(
-	PC * ppc,
-	Area * pCurrentArea,
-	Location * pCurrentLocation)
+Game::Game()
+{
+	// INITIALIZE VARIABLES
+	pCurrentArea = &startArea;
+	pCurrentLocation = &startArea.farm;
+	move = "";
+
+	// DEFINE OBJECTS
+	createObjects();
+
+	// DEFINE CHARACTERS
+	startingEquipment.push_back(&masterObjectList[WATER]);
+	pc.inventory = startingEquipment;
+
+	// DEFINE LOCATIONS
+	pCurrentArea->pMasterObjectList = &masterObjectList;
+
+	// PLACE OBJECTS
+	startArea.farm.objectsHere.push_back(&masterObjectList[SWORD]);
+
+	// INITIALIZE
+	printIntro();
+	printFullDescription();
+
+
+	// MAIN LOOP
+
+	while (1)
+	{
+		getMove();
+		parseMove();
+		executeMove();
+	}
+}
+
+
+void Game::printFullDescription()
 
 {
 	pCurrentLocation->printLocationName();
-	ppc->printPCStatus();
+	pc.printPCStatus();
 	pCurrentArea->printSurroundings(pCurrentLocation);
 	pCurrentArea->printLocationDescription(pCurrentLocation);
 	pCurrentArea->printObjectsHere(pCurrentLocation);
-	ppc->printInventory();
+	pc.printInventory();
 }
 
-void createObjects(vector<Object>* masterObjectList)
+void Game::createObjects()
 {
 	Object water;
 	water.name = "water bottle";
@@ -288,51 +314,51 @@ void createObjects(vector<Object>* masterObjectList)
 	// the order specified by the ALL_OBJECTS enumerator. This allows indexing
 	// into the master object list to retrieve an object from it by "name"
 	water.id = WATER;
-	masterObjectList->push_back(water);
+	masterObjectList.push_back(water);
 
 	Object sword;
 	sword.name = "crude sword";
 	sword.description = "This crude blade is made from scraps of a worn-down building.";
 	
 	sword.id = SWORD;
-	masterObjectList->push_back(sword);
+	masterObjectList.push_back(sword);
 }
 
 //EXECUTE MOVE
-void executeMove(string *pMove, Area *pCurrentArea, Location *pCurrentLocation, PC *ppc)
+void Game::executeMove()
 {
-	if (*pMove == "n" && pCurrentArea->checkNorth(pCurrentLocation))
+	if (move == "n" && pCurrentArea->checkNorth(pCurrentLocation))
 	{
 		pCurrentLocation = pCurrentArea->getNorth(pCurrentLocation);
-		printFullDescription(ppc, pCurrentArea, pCurrentLocation);
+		printFullDescription();
 	}
-	else if (*pMove == "e" && pCurrentArea->checkEast(pCurrentLocation))
+	else if (move == "e" && pCurrentArea->checkEast(pCurrentLocation))
 	{
 		pCurrentLocation = pCurrentArea->getEast(pCurrentLocation);
-		printFullDescription(ppc, pCurrentArea, pCurrentLocation);
+		printFullDescription();
 	}
-	else if (*pMove == "s" && pCurrentArea->checkSouth(pCurrentLocation))
+	else if (move == "s" && pCurrentArea->checkSouth(pCurrentLocation))
 	{
 		pCurrentLocation = pCurrentArea->getSouth(pCurrentLocation);
-		printFullDescription(ppc, pCurrentArea, pCurrentLocation);
+		printFullDescription();
 	}
-	else if (*pMove == "w" && pCurrentArea->checkWest(pCurrentLocation))
+	else if (move == "w" && pCurrentArea->checkWest(pCurrentLocation))
 	{
 		pCurrentLocation = pCurrentArea->getWest(pCurrentLocation);
-		printFullDescription(ppc, pCurrentArea, pCurrentLocation);
+		printFullDescription();
 	}
 }
 
-void getMove(string *pMove)
+void Game::getMove()
 {
-	cin >> *pMove;
+	cin >> move;
 }
 
-void parseMove(string *pMove)
+void Game::parseMove()
 {
 }
 
-void printIntro()
+void Game::printIntro()
 {
 	cout << "Welcome to hell." << endl << endl;
 }
@@ -341,37 +367,38 @@ void printIntro()
 
 int main(int argc, char** argv)
 {
+	Game game;
 
-	// DEFINE OBJECTS
-	vector<Object> masterObjectList;
-	createObjects(&masterObjectList);
+	//// DEFINE OBJECTS
+	//vector<Object> masterObjectList;
+	//createObjects(&masterObjectList);
 
-	// DEFINE CHARACTERS
-	vector<Object *> startingEquipment;
-	startingEquipment.push_back(&masterObjectList[WATER]);
-	PC pc(startingEquipment);
-	PC *ppc = &pc;
+	//// DEFINE CHARACTERS
+	//vector<Object *> startingEquipment;
+	//startingEquipment.push_back(&masterObjectList[WATER]);
+	//PC pc(startingEquipment);
+	//PC *ppc = &pc;
 
-	// DEFINE LOCATIONS
-	StartArea startArea(&masterObjectList);
-	Area * pCurrentArea = &startArea;
-	Location *pCurrentLocation = &startArea.farm;
+	//// DEFINE LOCATIONS
+	//StartArea startArea(&masterObjectList);
+	//Area * pCurrentArea = &startArea;
+	//Location *pCurrentLocation = &startArea.farm;
 
-	// INITIALIZE
-	string move = "";
-	string *pMove = &move;
-	printIntro();
-	printFullDescription(ppc, pCurrentArea, pCurrentLocation);
+	//// INITIALIZE
+	//string move = "";
+	//string *pMove = &move;
+	//printIntro();
+	//printFullDescription(ppc, pCurrentArea, pCurrentLocation);
 
 
-	// MAIN LOOP
+	//// MAIN LOOP
 
-	while (1)
-	{
-		getMove(pMove);
-		parseMove(pMove);
-		executeMove(pMove, pCurrentArea, pCurrentLocation, ppc);
-	}
+	//while (1)
+	//{
+	//	getMove(pMove);
+	//	parseMove(pMove);
+	//	executeMove(pMove, pCurrentArea, pCurrentLocation, ppc);
+	//}
 
 	return 0;
 }
