@@ -51,7 +51,7 @@ Game::Game()
 
 	// DEFINE CHARACTERS
 	startingEquipment.push_back(&masterObjectList[WATER]);
-	pc.inventory = startingEquipment;
+	pc.setInventory(startingEquipment);
 
 	// DEFINE LOCATIONS
 	pCurrentArea->pMasterObjectList = &masterObjectList;
@@ -155,7 +155,7 @@ void Game::executeMoveGet(std::string objectName)
 			objectNameID = (*it)->id;				// save off the object ID so we can add one to the masterObjectList
 			pCurrentLocation->objectsHere.erase(remove_if(pCurrentLocation->objectsHere.begin(), pCurrentLocation->objectsHere.end(), [](Object *lhs) {return lhs->name == lhs->compareObjectName;}));
 			// add it to inventory
-			pc.inventory.push_back(&masterObjectList[objectNameID]);
+			pc.pushInventory(&masterObjectList[objectNameID]);
 			printFullDescription();
 			return;
 		}
