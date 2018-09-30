@@ -1,0 +1,5 @@
+# A list of untracked files and directories
+
+x64/
+Debug/
+.vs/
