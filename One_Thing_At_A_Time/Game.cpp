@@ -54,7 +54,7 @@ Game::Game()
 	pc.setInventory(startingEquipment);
 
 	// DEFINE LOCATIONS
-	pCurrentArea->pMasterObjectList = &masterObjectList;
+	pCurrentArea->setpMasterObjectList(&masterObjectList);
 
 	// PLACE OBJECTS
 	startArea.farm.objectsHere.push_back(&masterObjectList[SWORD]);

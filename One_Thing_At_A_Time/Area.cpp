@@ -1,5 +1,28 @@
 #include "Area.h"
 
+// 2D Array for map
+/*******************
+*10WASTE*11MOUNTAIN*
+********************
+*00FARM *01TOWER   *
+*******************/
+
+/* Used to convert 1D enum to 2D array. */
+#define STARTING_AREA_MAX_ROW 2
+
+enum STARTING_AREA_LOCATIONS
+{
+	/* Row 0 */
+	FARM_LOCATION_VALUE,
+	TOWER_LOCATION_VALUE,
+
+	/* Row 1 */
+	WASTE_LOCATION_VALUE,
+	MOUNTAIN_LOCATION_VALUE,
+
+	MAX_LOCATION_VALUE
+};
+
 Area::Area(std::vector<Object> *rhs)
 {
 	pMasterObjectList = rhs;
@@ -87,23 +110,23 @@ StartArea::StartArea()
 			"This moisture farm is designed to harvest water "
 			"particulates in the air. It and the farms like it "
 			"are the most precious resource in the world.";
-		farm.row = 0;
-		farm.col = 0;
+		farm.row = (FARM_LOCATION_VALUE / STARTING_AREA_MAX_ROW);
+		farm.col = (FARM_LOCATION_VALUE % STARTING_AREA_MAX_ROW);
 
 		tower.name = "water tower";
 		tower.description = "This water tower is used by the farm for storage";
-		tower.row = 0;
-		tower.col = 1;
+		tower.row = (TOWER_LOCATION_VALUE / STARTING_AREA_MAX_ROW);
+		tower.col = (TOWER_LOCATION_VALUE % STARTING_AREA_MAX_ROW);
 
 		waste.name = "barren waste";
 		waste.description = "It is barren. And a waste. ";
-		waste.row = 1;
-		waste.col = 0;
+		waste.row = (WASTE_LOCATION_VALUE / STARTING_AREA_MAX_ROW);
+		waste.col = (WASTE_LOCATION_VALUE % STARTING_AREA_MAX_ROW);
 
 		mountain.name = "mountain";
-		mountain.description = "This is a mountain.";
-		mountain.row = 1;
-		mountain.col = 1;
+		mountain.description = "This is a mountain. It's probably impassable. So how are you here?";
+		mountain.row = (MOUNTAIN_LOCATION_VALUE / STARTING_AREA_MAX_ROW);
+		mountain.col = (MOUNTAIN_LOCATION_VALUE % STARTING_AREA_MAX_ROW);;
 
 		// 2D Array for map
 		/*******************
@@ -111,9 +134,9 @@ StartArea::StartArea()
 		********************
 		*00FARM *01TOWER   *
 		*******************/
-		pLocationMap[0][0] = &farm;
-		pLocationMap[0][1] = &tower;
-		pLocationMap[1][0] = &waste;
-		pLocationMap[1][1] = &mountain;
 
+		addpLocationTopLocationMap(farm.row, farm.col, &farm);
+		addpLocationTopLocationMap(tower.row, tower.col, &tower);
+		addpLocationTopLocationMap(waste.row, waste.col, &waste);
+		addpLocationTopLocationMap(mountain.row, mountain.col, &mountain);
 	}
