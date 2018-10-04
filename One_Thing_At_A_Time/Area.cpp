@@ -38,42 +38,42 @@ Area::Area()
 			pLocationMap[i][j] = '\0';
 }
 
-bool Area::checkNorth(Location * pCurrentLocation)
+inline bool Area::checkNorth(Location * pCurrentLocation)
 {
 	return (pLocationMap[pCurrentLocation->row + 1][pCurrentLocation->col] != '\0') && (pCurrentLocation->row + 1 <= MAP_GRID_MAX_SIZE);
 }
 
-bool Area::checkEast(Location * pCurrentLocation)
+inline bool Area::checkEast(Location * pCurrentLocation)
 {
 	return (pLocationMap[pCurrentLocation->row][pCurrentLocation->col + 1] != '\0') && (pCurrentLocation->col + 1 <= MAP_GRID_MAX_SIZE);
 }
 
-bool Area::checkSouth(Location * pCurrentLocation)
+inline bool Area::checkSouth(Location * pCurrentLocation)
 {
 	return (pLocationMap[pCurrentLocation->row - 1][pCurrentLocation->col] != '\0') && (pCurrentLocation->row - 1 >= 0);
 }
 
-bool Area::checkWest(Location * pCurrentLocation)
+inline bool Area::checkWest(Location * pCurrentLocation)
 {
 	return (pLocationMap[pCurrentLocation->row][pCurrentLocation->col - 1] != '\0') && (pCurrentLocation->col - 1 >= 0);
 }
 
-Location * Area::getNorth(Location * pCurrentLocation)
+inline Location * Area::getNorth(Location * pCurrentLocation)
 {
 	return pLocationMap[pCurrentLocation->row + 1][pCurrentLocation->col];
 }
 
-Location * Area::getEast(Location * pCurrentLocation)
+inline Location * Area::getEast(Location * pCurrentLocation)
 {
 	return pLocationMap[pCurrentLocation->row][pCurrentLocation->col + 1];
 }
 
-Location * Area::getSouth(Location * pCurrentLocation)
+inline Location * Area::getSouth(Location * pCurrentLocation)
 {
 	return pLocationMap[pCurrentLocation->row - 1][pCurrentLocation->col];
 }
 
-Location * Area::getWest(Location * pCurrentLocation)
+inline Location * Area::getWest(Location * pCurrentLocation)
 {
 	return pLocationMap[pCurrentLocation->row][pCurrentLocation->col - 1];
 }
