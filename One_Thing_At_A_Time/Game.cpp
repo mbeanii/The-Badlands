@@ -29,7 +29,6 @@
 #include <string>
 #include <vector>
 #include <iterator>
-#include <algorithm> // for remove_if
 #include <sstream>   // for stringstream
 
 /* Locally defined header files */
@@ -57,8 +56,8 @@ Game::Game()
 	pCurrentArea->setpMasterObjectList(&masterObjectList);
 
 	// PLACE OBJECTS
-	startArea.farm.objectsHere.push_back(&masterObjectList[SWORD]);
-	startArea.mountain.objectsHere.push_back(&masterObjectList[CAT]);
+	startArea.farm.pushObject(&masterObjectList[SWORD]);
+	startArea.mountain.pushObject(&masterObjectList[CAT]);
 
 	// INITIALIZE
 	printIntro();
@@ -140,22 +139,12 @@ void Game::executeMove()
 
 void Game::executeMoveGet(std::string objectName)
 {
-	int objectNameID = -1; //initialize to invalid object ID number
 	transform(objectName.begin(),objectName.end(),objectName.begin(),tolower);
-	// this needs to be changed to handle any object (ie, by iterating through the master object list to find the object)
-	// it also needs to check to make sure the object is actually there.
-	// and it needs error messages for both of the above cases.
 
-	//check to see if the object is there
-	for(std::vector<Object *>::iterator it = pCurrentLocation->objectsHere.begin(); it != pCurrentLocation->objectsHere.end(); ++it)
-		if ((*it)->name == objectName)
+	if (pCurrentLocation->checkObjectIsHere(objectName))
 		{
-			// remove it from the location
-			(*it)->compareObjectName = objectName;	// to pass objectName into the lambda function on the next line
-			objectNameID = (*it)->id;				// save off the object ID so we can add one to the masterObjectList
-			pCurrentLocation->objectsHere.erase(remove_if(pCurrentLocation->objectsHere.begin(), pCurrentLocation->objectsHere.end(), [](Object *lhs) {return lhs->name == lhs->compareObjectName;}));
-			// add it to inventory
-			pc.pushInventory(&masterObjectList[objectNameID]);
+			// Remove it from the location and add it to the pc's inventory.
+			pc.pushInventory(&(masterObjectList[pCurrentLocation->removeObject(objectName)]));		
 			printFullDescription();
 			return;
 		}

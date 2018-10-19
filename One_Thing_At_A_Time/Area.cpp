@@ -40,93 +40,101 @@ Area::Area()
 
 inline bool Area::checkNorth(Location * pCurrentLocation)
 {
-	return (pLocationMap[pCurrentLocation->row + 1][pCurrentLocation->col] != '\0') && (pCurrentLocation->row + 1 <= MAP_GRID_MAX_SIZE);
+	return (pLocationMap[pCurrentLocation->getNextRow()][pCurrentLocation->getCol()] != '\0') && (pCurrentLocation->getNextRow() <= MAP_GRID_MAX_SIZE);
 }
 
 inline bool Area::checkEast(Location * pCurrentLocation)
 {
-	return (pLocationMap[pCurrentLocation->row][pCurrentLocation->col + 1] != '\0') && (pCurrentLocation->col + 1 <= MAP_GRID_MAX_SIZE);
+	return (pLocationMap[pCurrentLocation->getRow()][pCurrentLocation->getNextCol()] != '\0') && (pCurrentLocation->getNextCol() <= MAP_GRID_MAX_SIZE);
 }
 
 inline bool Area::checkSouth(Location * pCurrentLocation)
 {
-	return (pLocationMap[pCurrentLocation->row - 1][pCurrentLocation->col] != '\0') && (pCurrentLocation->row - 1 >= 0);
+	return (pLocationMap[pCurrentLocation->getPrevRow()][pCurrentLocation->getCol()] != '\0') && (pCurrentLocation->getPrevRow() >= 0);
 }
 
 inline bool Area::checkWest(Location * pCurrentLocation)
 {
-	return (pLocationMap[pCurrentLocation->row][pCurrentLocation->col - 1] != '\0') && (pCurrentLocation->col - 1 >= 0);
+	return (pLocationMap[pCurrentLocation->getRow()][pCurrentLocation->getPrevCol()] != '\0') && (pCurrentLocation->getPrevCol() >= 0);
 }
 
 inline Location * Area::getNorth(Location * pCurrentLocation)
 {
-	return pLocationMap[pCurrentLocation->row + 1][pCurrentLocation->col];
+	return pLocationMap[pCurrentLocation->getNextRow()][pCurrentLocation->getCol()];
 }
 
 inline Location * Area::getEast(Location * pCurrentLocation)
 {
-	return pLocationMap[pCurrentLocation->row][pCurrentLocation->col + 1];
+	return pLocationMap[pCurrentLocation->getRow()][pCurrentLocation->getNextCol()];
 }
 
 inline Location * Area::getSouth(Location * pCurrentLocation)
 {
-	return pLocationMap[pCurrentLocation->row - 1][pCurrentLocation->col];
+	return pLocationMap[pCurrentLocation->getPrevRow()][pCurrentLocation->getCol()];
 }
 
 inline Location * Area::getWest(Location * pCurrentLocation)
 {
-	return pLocationMap[pCurrentLocation->row][pCurrentLocation->col - 1];
+	return pLocationMap[pCurrentLocation->getRow()][pCurrentLocation->getPrevCol()];
 }
 
 void Area::printSurroundings(Location * pCurrentLocation)
 {
 	if (checkNorth(pCurrentLocation))
-		std::cout << "To the North lies a " << getNorth(pCurrentLocation)->name
+		std::cout << "To the North lies a " << getNorth(pCurrentLocation)->getName()
 		<< "." << std::endl;
 	if (checkEast(pCurrentLocation))
-		std::cout << "To the East lies a " << getEast(pCurrentLocation)->name
+		std::cout << "To the East lies a " << getEast(pCurrentLocation)->getName()
 		<< "." << std::endl;
 	if (checkSouth(pCurrentLocation))
-		std::cout << "To the South lies a " << getSouth(pCurrentLocation)->name
+		std::cout << "To the South lies a " << getSouth(pCurrentLocation)->getName()
 		<< "." << std::endl;
 	if (checkWest(pCurrentLocation))
-		std::cout << "To the West lies a " << getWest(pCurrentLocation)->name
+		std::cout << "To the West lies a " << getWest(pCurrentLocation)->getName()
 		<< "." << std::endl;
 }
 
 void Area::printObjectsHere(Location * pCurrentLocation)
 {
-	if (pCurrentLocation->objectsHere.size() > 0)
-		for (std::vector<Object *>::iterator it = pCurrentLocation->objectsHere.begin();
-			it != pCurrentLocation->objectsHere.end();
+	if (pCurrentLocation->getObjectsHere().size() > 0)
+		for (std::vector<Object *>::iterator it = pCurrentLocation->getObjectsHereBegin();
+			it != pCurrentLocation->getObjectsHereEnd();
 			++it)
 			std::cout << "There is a " << (*it)->name << " here.\n";
 }
 
 StartArea::StartArea()
 	{
-		farm.name = "moisture farm";
-		farm.description =
+		farm.setName("moisture farm");
+		std::string tempString =
 			"This moisture farm is designed to harvest water "
 			"particulates in the air. It and the farms like it "
 			"are the most precious resource in the world.";
-		farm.row = (FARM_LOCATION_VALUE / STARTING_AREA_MAX_ROW);
-		farm.col = (FARM_LOCATION_VALUE % STARTING_AREA_MAX_ROW);
+		farm.setDescription(tempString);
+		tempString = "";
+		farm.setRow(FARM_LOCATION_VALUE / STARTING_AREA_MAX_ROW);
+		farm.setCol(FARM_LOCATION_VALUE % STARTING_AREA_MAX_ROW);
 
-		tower.name = "water tower";
-		tower.description = "This water tower is used by the farm for storage";
-		tower.row = (TOWER_LOCATION_VALUE / STARTING_AREA_MAX_ROW);
-		tower.col = (TOWER_LOCATION_VALUE % STARTING_AREA_MAX_ROW);
+		tower.setName("water tower");
+		tempString = "This water tower is used by the farm for storage";
+		tower.setDescription(tempString);
+		tempString = "";
+		tower.setRow(TOWER_LOCATION_VALUE / STARTING_AREA_MAX_ROW);
+		tower.setCol(TOWER_LOCATION_VALUE % STARTING_AREA_MAX_ROW);
 
-		waste.name = "barren waste";
-		waste.description = "It is barren. And a waste. ";
-		waste.row = (WASTE_LOCATION_VALUE / STARTING_AREA_MAX_ROW);
-		waste.col = (WASTE_LOCATION_VALUE % STARTING_AREA_MAX_ROW);
+		waste.setName("barren waste");
+		tempString = "It is barren. And a waste. ";
+		waste.setDescription(tempString);
+		tempString = "";
+		waste.setRow(WASTE_LOCATION_VALUE / STARTING_AREA_MAX_ROW);
+		waste.setCol(WASTE_LOCATION_VALUE % STARTING_AREA_MAX_ROW);
 
-		mountain.name = "mountain";
-		mountain.description = "This is a mountain. It's probably impassable. So how are you here?";
-		mountain.row = (MOUNTAIN_LOCATION_VALUE / STARTING_AREA_MAX_ROW);
-		mountain.col = (MOUNTAIN_LOCATION_VALUE % STARTING_AREA_MAX_ROW);;
+		mountain.setName("mountain");
+		tempString =  "This is a mountain. It's probably impassable. So how are you here?";
+		mountain.setDescription(tempString);
+		tempString = "";
+		mountain.setRow(MOUNTAIN_LOCATION_VALUE / STARTING_AREA_MAX_ROW);
+		mountain.setCol(MOUNTAIN_LOCATION_VALUE % STARTING_AREA_MAX_ROW);;
 
 		// 2D Array for map
 		/*******************
@@ -135,8 +143,8 @@ StartArea::StartArea()
 		*00FARM *01TOWER   *
 		*******************/
 
-		addpLocationTopLocationMap(farm.row, farm.col, &farm);
-		addpLocationTopLocationMap(tower.row, tower.col, &tower);
-		addpLocationTopLocationMap(waste.row, waste.col, &waste);
-		addpLocationTopLocationMap(mountain.row, mountain.col, &mountain);
+		addpLocationTopLocationMap(farm.getRow(), farm.getCol(), &farm);
+		addpLocationTopLocationMap(tower.getRow(), tower.getCol(), &tower);
+		addpLocationTopLocationMap(waste.getRow(), waste.getCol(), &waste);
+		addpLocationTopLocationMap(mountain.getRow(), mountain.getCol(), &mountain);
 	}

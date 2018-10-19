@@ -8,7 +8,7 @@ class Object
 {
 public:
 	std::string name;
-	std::string compareObjectName; // Used to compare a different object to this object
 	std::string description;
-	int id;
+	bool removeMe;
+	OBJECTS id;
 };
