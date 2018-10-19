@@ -3,7 +3,12 @@
 x64/
 Debug/*
 .vs/
-*log
-*obj
-*pdb
-*idb
+*.log
+*.obj
+*.pdb
+*.idb
+*.enc
+*.tlog
+
+One_Thing_At_A_Time/Debug/One_Thing_At_A_Time.log
+One_Thing_At_A_Time/Debug/area.obj.enc
