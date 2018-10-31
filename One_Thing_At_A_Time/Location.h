@@ -39,5 +39,5 @@ public:
 	void setCol(short inputCol) { col = inputCol; };
 	void pushObject(Object *pushee) { objectsHere.push_back(pushee); };
 	void printLocationName() { std::cout << "You are at the " << name << "." << std::endl; }
-	OBJECTS removeObject(std::string pInputObject);
+	OBJECTS_ENUM removeObject(std::string pInputObject);
 };

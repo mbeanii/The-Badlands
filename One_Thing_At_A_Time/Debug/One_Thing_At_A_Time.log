@@ -1,7 +1,3 @@
 ﻿  Location.cpp
-  Game.cpp
-  Generating Code...
 c:\users\marcus\git\the_badlands\one_thing_at_a_time\location.cpp(14): warning C4715: 'Location::lookupObjectFromName': not all control paths return a value
-  Skipping... (no relevant changes detected)
-  Area.cpp
   One_Thing_At_A_Time.vcxproj -> C:\Users\Marcus\git\The_Badlands\Debug\One_Thing_At_A_Time.exe

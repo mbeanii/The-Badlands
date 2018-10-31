@@ -10,7 +10,7 @@
 
 class Game
 {
-public:
+private:
 	std::vector<Object> masterObjectList;
 	std::vector<Object *> startingEquipment;
 	PC pc;
@@ -19,12 +19,14 @@ public:
 	Location *pCurrentLocation;
 	std::string move = "";
 
-	Game();
 	void createObjects();
 	void printFullDescription();
 	void executeMove();
 	void executeMoveGet(std::string objectName);
-	void getMove();
+	void uiGetMove();
 	void parseMove();
 	void printIntro();
+
+public:
+	Game();
 };

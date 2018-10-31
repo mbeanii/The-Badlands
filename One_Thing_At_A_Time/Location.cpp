@@ -8,7 +8,7 @@ Object *Location::lookupObjectFromName(std::string objectName)
 {
 	for (std::vector<Object *>::iterator it = objectsHere.begin(); it != objectsHere.end(); ++it)
 	{
-		if ((*it)->name == objectName)
+		if ((*it)->getName() == objectName)
 			return (*it);
 	}
 }
@@ -19,22 +19,22 @@ bool Location::checkObjectIsHere(std::string objectName)
 {
 	for (std::vector<Object *>::iterator it = objectsHere.begin(); it != objectsHere.end(); ++it)
 	{
-		if ((*it)->name == objectName)
+		if ((*it)->getName() == objectName)
 			return true;
 	}
 	return false;
 }
 
-OBJECTS Location::removeObject(std::string inputObjectName) {
+OBJECTS_ENUM Location::removeObject(std::string inputObjectName) {
 
 	Object *pInputObject = lookupObjectFromName(inputObjectName);
 
 	// Return the object ID so we can add one to the masterObjectList
-	OBJECTS returnValue = pInputObject->id;
+	OBJECTS_ENUM returnValue = pInputObject->getId();
 
-	pInputObject->removeMe = true;
-	objectsHere.erase(remove_if(getObjectsHereBegin(), getObjectsHereEnd(), [](Object *lhs) {return lhs->removeMe == true; }));
-	pInputObject->removeMe = false;
+	pInputObject->setRemoveMe(true);
+	objectsHere.erase(remove_if(getObjectsHereBegin(), getObjectsHereEnd(), [](Object *lhs) {return lhs->getRemoveMe() == true; }));
+	pInputObject->setRemoveMe(false);
 
 	return returnValue;
 };

@@ -100,7 +100,7 @@ void Area::printObjectsHere(Location * pCurrentLocation)
 		for (std::vector<Object *>::iterator it = pCurrentLocation->getObjectsHereBegin();
 			it != pCurrentLocation->getObjectsHereEnd();
 			++it)
-			std::cout << "There is a " << (*it)->name << " here.\n";
+			std::cout << "There is a " << (*it)->getName() << " here.\n";
 }
 
 StartArea::StartArea()

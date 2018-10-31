@@ -68,7 +68,7 @@ Game::Game()
 
 	while (1)
 	{
-		getMove();
+		uiGetMove();
 		parseMove();
 	}
 }
@@ -88,26 +88,26 @@ void Game::printFullDescription()
 void Game::createObjects()
 {
 	Object water;
-	water.name = "water bottle";
-	water.description = "Water is cool, refreshing, and necessary for life.";
+	water.setName("water bottle");
+	water.setDescription("Water is cool, refreshing, and necessary for life.");
 	// The next two instructions always need to happen in succession, and in
-	// the order specified by the OBJECTS enumerator. This allows indexing
+	// the order specified by the OBJECTS_ENUM enumerator. This allows indexing
 	// into the master object list to retrieve an object from it by "name"
-	water.id = WATER;
+	water.setId(WATER);
 	masterObjectList.push_back(water);
 
 	Object sword;
-	sword.name = "sword";
-	sword.description = "This crude blade is made from scraps of a worn-down building.";
+	sword.setName("sword");
+	sword.setDescription("This crude blade is made from scraps of a worn-down building.");
 	
-	sword.id = SWORD;
+	sword.setId(SWORD);
 	masterObjectList.push_back(sword);
 
 	Object cat;
-	cat.name = "cat";
-	cat.description = "This scrawny feral feline looks ready for a row.";
+	cat.setName("cat");
+	cat.setDescription("This scrawny feral feline looks ready for a row.");
 
-	cat.id = CAT;
+	cat.setId(CAT);
 	masterObjectList.push_back(cat);
 }
 
@@ -155,7 +155,7 @@ void Game::executeMoveGet(std::string objectName)
 		}
 }
 
-void Game::getMove()
+void Game::uiGetMove()
 {
 	std::getline(std::cin,move);
 	std::cin.clear();
