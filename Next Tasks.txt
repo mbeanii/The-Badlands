@@ -1,0 +1,9 @@
+- Implement "examine" or "x" command to return the description of an object either in your inventory or in the current location
+- Implement "north", "south", "east", and "west" full name commands as alternatives to the "n", "s", "e", "w" commands
+
+Equiping items
+PC/NPC attributes, skills, abilities, experience points, etc.
+Traveling between Areas?
+Fast Travel?
+A Map?
+NPCs/Combat?
