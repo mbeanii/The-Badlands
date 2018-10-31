@@ -26,6 +26,8 @@ private:
 	void uiGetMove();
 	void parseMove();
 	void printIntro();
+	void pickUpObject(std::string objectName);
+	Object *lookupObjectFromName(std::string objectName);
 
 public:
 	Game();

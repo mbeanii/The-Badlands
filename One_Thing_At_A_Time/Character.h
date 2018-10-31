@@ -18,8 +18,8 @@ public:
 
 	/* Mutators */
 	void setStatus(std::string lhs) { status = lhs; };
-	void setInventory(std::vector<Object*> lhs) { inventory = lhs; };
-	void pushInventory(Object * lhs) { inventory.push_back(lhs); };
+	void setInventory(std::vector<Object*> inputInventory) { inventory = inputInventory; };
+	void pushInventory(Object *inputObject) { inventory.push_back(inputObject); };
 };
 
 class PC : public Character

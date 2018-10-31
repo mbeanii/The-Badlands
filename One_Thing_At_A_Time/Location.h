@@ -15,8 +15,6 @@ private:
 	short col;
 	std::vector<Object *> objectsHere;
 
-	Object *lookupObjectFromName(std::string objectName);
-
 public:
 	/* Accessors */
 	std::string getName() { return name; };
@@ -31,6 +29,7 @@ public:
 	short getPrevRow() { return (row - 1); };
 	short getPrevCol() { return (col - 1); };
 	bool checkObjectIsHere(std::string objectName);
+	Object *lookupObjectFromName(std::string objectName);
 
 	/* Mutators */
 	void setName(std::string inputName) { name = inputName; };
@@ -39,5 +38,5 @@ public:
 	void setCol(short inputCol) { col = inputCol; };
 	void pushObject(Object *pushee) { objectsHere.push_back(pushee); };
 	void printLocationName() { std::cout << "You are at the " << name << "." << std::endl; }
-	OBJECTS_ENUM removeObject(std::string pInputObject);
+	void removeObject(std::string pInputObject);
 };

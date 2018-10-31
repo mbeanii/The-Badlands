@@ -48,16 +48,17 @@ Game::Game()
 	// DEFINE OBJECTS
 	createObjects();
 
-	// DEFINE CHARACTERS
-	startingEquipment.push_back(&masterObjectList[WATER]);
-	pc.setInventory(startingEquipment);
-
 	// DEFINE LOCATIONS
 	pCurrentArea->setpMasterObjectList(&masterObjectList);
 
+	// DEFINE CHARACTERS
+	startingEquipment.push_back(lookupObjectFromName("water bottle"));
+	pc.setInventory(startingEquipment);
+
+
 	// PLACE OBJECTS
-	startArea.farm.pushObject(&masterObjectList[SWORD]);
-	startArea.mountain.pushObject(&masterObjectList[CAT]);
+	startArea.farm.pushObject(lookupObjectFromName("sword"));
+	startArea.mountain.pushObject(lookupObjectFromName("cat"));
 
 	// INITIALIZE
 	printIntro();
@@ -73,6 +74,14 @@ Game::Game()
 	}
 }
 
+Object *Game::lookupObjectFromName(std::string objectName)
+{
+	for (std::vector<Object>::iterator it = masterObjectList.begin(); it != masterObjectList.end(); ++it)
+	{
+		if (it->getName() == objectName)
+			return &(*it);
+	}
+}
 
 void Game::printFullDescription()
 {
@@ -87,27 +96,19 @@ void Game::printFullDescription()
 
 void Game::createObjects()
 {
-	Object water;
-	water.setName("water bottle");
-	water.setDescription("Water is cool, refreshing, and necessary for life.");
-	// The next two instructions always need to happen in succession, and in
-	// the order specified by the OBJECTS_ENUM enumerator. This allows indexing
-	// into the master object list to retrieve an object from it by "name"
-	water.setId(WATER);
-	masterObjectList.push_back(water);
+	Object water_bottle;
+	water_bottle.setName("water bottle");
+	water_bottle.setDescription("Water is cool, refreshing, and necessary for life.");
+	masterObjectList.push_back(water_bottle);
 
 	Object sword;
 	sword.setName("sword");
 	sword.setDescription("This crude blade is made from scraps of a worn-down building.");
-	
-	sword.setId(SWORD);
 	masterObjectList.push_back(sword);
 
 	Object cat;
 	cat.setName("cat");
 	cat.setDescription("This scrawny feral feline looks ready for a row.");
-
-	cat.setId(CAT);
 	masterObjectList.push_back(cat);
 }
 
@@ -136,6 +137,13 @@ void Game::executeMove()
 	}
 }
 
+void Game::pickUpObject(std::string objectName)
+{
+	// Remove it from the location and add it to the pc's inventory.
+	pc.pushInventory(pCurrentLocation->lookupObjectFromName(objectName));
+	pCurrentLocation->removeObject(objectName);
+}
+
 
 void Game::executeMoveGet(std::string objectName)
 {
@@ -143,8 +151,7 @@ void Game::executeMoveGet(std::string objectName)
 
 	if (pCurrentLocation->checkObjectIsHere(objectName))
 		{
-			// Remove it from the location and add it to the pc's inventory.
-			pc.pushInventory(&(masterObjectList[pCurrentLocation->removeObject(objectName)]));		
+			pickUpObject(objectName);
 			printFullDescription();
 			return;
 		}
