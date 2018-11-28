@@ -7,3 +7,22 @@ Traveling between Areas?
 Fast Travel?
 A Map?
 NPCs/Combat?
+Events?
+    - Trigger
+    - Description
+    - Effect:
+e.g., you get burned, you lose a level, you activate a trap, you are seen by the monster, etc.
+        - Maybe the effect from the event is added to an "effects to be processed on this
+character this cycle" attribute list on each character, then each cycle the effect parser is
+called to cycle through each "character here" and apply each effect.
+
+Effect parser:
+Should be usable by:
+    - events
+    - spells
+    - items
+        - one shot,
+        - equippable items with a permanent effect on the user
+        - equippable weapons with effects on a target
+            - Weapons with special hit effects (e.g., posion arrows, flaming sword, etc.)
+            - Items with a special use/property (e.g., ring of webs, etc.)
