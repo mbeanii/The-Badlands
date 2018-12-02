@@ -6,20 +6,35 @@
     - PC (is a character)
     - Command
 - Object
-    - Master List (const variable in the file)
+- Master Object List (const variable in the file)
 - Events
 - Effect Parser
 ==================================================================================================
 
 Object:
-- Make the master object list a private static const member variable of the Object class:
-static const std::vector<Object> masterObjectList inside Object.h and Object.c.
+- Make the master object list a global const variable inside Object.h and Object.c:
+const std::vector<Object> masterObjectList
 0001
+- Error handle lookupObjectByName. If an object isn't found in the list, an assert should be
+triggered:
+ else
+{
+assert(false);
+},
+Or an exception should be thrown.
+- Maybe there's a storage container object. Maybe some you can get (box, bag of holding, etc.),
+and some you can't (barrel, chest, infinite void, etc.) They should be implemented so you
+can get an object from them by name, e.g., "get necklace from box", or so that you can browse
+the contents of the box, e.g., "search box"
 
 Game:
+- Investigate //DEFINE LOCATIONS section of the Game() default constructor. Think about
+possible alternatives.
 - Move starting equipment to the PC's default constructor.
 - Change "move" to "command" (std::string move, getMove, parseMove, executeMove, etc.)
 - Verify the getCommand, parseCommand, and executeCommand workflow
+- UI (where is this implemented? Game? Where should it be implemented? Its own class, maybe?)
+    - Add a period to "You cant see a <object> here" error message.
 
 Commands:
 - Implement "examine" or "x" command to return the description of an object either in your
@@ -37,6 +52,7 @@ Character:
     - Adding/removing NPC team members
 
 Area/Location:
+- Building/Room (subsets and subsubsets of locations)
 - Verify the Area/Location workflow - where and how are the different areas stored?
 The different locations? Somehow each area should contain its locations, each location
 should contain its buildings, and each building should contain its rooms. We also want
@@ -49,12 +65,13 @@ universes capability would be a sci-fi world where interdimensional travel is a 
 - Traveling between Areas (and beyond) - it'd probably be a specific location you'd have to
 visit, just like within a building, you could only travel between rooms with doors between
 them.
-- Fast Travel - probably from the map
-- Building/Room (subsets and subsubsets of locations)
+- Create a second Area with four locations and a point of travel between them. Test travel
+between areas.
 - Map
     - Add locations you have visited to your area map
     - Buildings you have visited to your location map?
     - Rooms you have visited to your building map (ie, Legend of Zelda dungeons?)
+- Fast Travel - probably from the map
 
 Events?
 - Combat

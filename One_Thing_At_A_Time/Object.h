@@ -19,4 +19,7 @@ public:
 	void setName(std::string inputName) { name = inputName; };
 	void setDescription(std::string inputDescription) { description = inputDescription; };
 	void setRemoveMe(bool inputRemoveMe) { removeMe = inputRemoveMe; };
+
+	/* Constructors */
+	Object(std::string inputName, std::string inputDescription) : name(inputName), description(inputDescription) {}
 };

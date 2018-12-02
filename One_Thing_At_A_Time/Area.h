@@ -13,10 +13,10 @@ class Area
 {
 private:
 	Location *pLocationMap[MAP_GRID_MAX_SIZE][MAP_GRID_MAX_SIZE];
-	std::vector<Object> *pMasterObjectList;
+	std::vector<Object *> *pMasterObjectList;
 
 public:
-	Area(std::vector<Object> *rhs);
+	Area(std::vector<Object *> *rhs);
 	Area();
 
 	/* Accessors */
@@ -32,7 +32,7 @@ public:
 
 	/* Mutators */
 	void addpLocationTopLocationMap(int row, int col, Location * pLocation) { pLocationMap[row][col] = pLocation; };
-	void setpMasterObjectList(std::vector<Object> *pList) { pMasterObjectList = pList; };
+	void setpMasterObjectList(std::vector<Object *> *pList) { pMasterObjectList = pList; };
 
 	void printLocationDescription(Location * pCurrentLocation) { std::cout << pCurrentLocation->getDescription() << std::endl; }
 	void printSurroundings(Location * pCurrentLocation);
