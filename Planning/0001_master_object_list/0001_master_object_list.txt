@@ -25,7 +25,7 @@ and Windows 7 on my work computer.
 Or with no name at all. From Asteroids, try masterObjectsList.pushback(new Object(blah, blah, blah));
 X Create a member function within the Game class which will push a new Object to his
 masterObjectList with given properties.
-I was able to implemnt and test this.
+I was able to implement and test this.
 
 =======================================================================================
 2:50 PM
