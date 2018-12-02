@@ -11,7 +11,7 @@
 class Game
 {
 private:
-	std::vector<Object> masterObjectList;
+	std::vector<Object *> masterObjectList;
 	std::vector<Object *> startingEquipment;
 	PC pc;
 	StartArea startArea;
@@ -31,4 +31,5 @@ private:
 
 public:
 	Game();
+	void Game::createObject(std::string name, std::string description) { masterObjectList.push_back(new Object(name, description)); }
 };

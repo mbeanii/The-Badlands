@@ -23,7 +23,7 @@ enum STARTING_AREA_LOCATIONS
 	MAX_LOCATION_VALUE
 };
 
-Area::Area(std::vector<Object> *rhs)
+Area::Area(std::vector<Object *> *rhs)
 {
 	pMasterObjectList = rhs;
 	for (int i = 0; i < MAP_GRID_MAX_SIZE; i++)

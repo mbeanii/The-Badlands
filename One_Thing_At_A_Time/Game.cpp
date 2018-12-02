@@ -22,7 +22,6 @@
 * on the horizon. It is said that one of the city-states has
 * developed a weapon capable of wiping out all life in an
 * area without harming structures or other resources.
-* 
 *********************************************************/
 
 #include <iostream>
@@ -76,10 +75,10 @@ Game::Game()
 
 Object *Game::lookupObjectFromName(std::string objectName)
 {
-	for (std::vector<Object>::iterator it = masterObjectList.begin(); it != masterObjectList.end(); ++it)
+	for (std::vector<Object *>::iterator it = masterObjectList.begin(); it != masterObjectList.end(); ++it)
 	{
-		if (it->getName() == objectName)
-			return &(*it);
+		if ((*it)->getName() == objectName)
+			return *it;
 	}
 }
 
@@ -96,20 +95,12 @@ void Game::printFullDescription()
 
 void Game::createObjects()
 {
-	Object water_bottle;
-	water_bottle.setName("water bottle");
-	water_bottle.setDescription("Water is cool, refreshing, and necessary for life.");
-	masterObjectList.push_back(water_bottle);
-
-	Object sword;
-	sword.setName("sword");
-	sword.setDescription("This crude blade is made from scraps of a worn-down building.");
-	masterObjectList.push_back(sword);
-
-	Object cat;
-	cat.setName("cat");
-	cat.setDescription("This scrawny feral feline looks ready for a row.");
-	masterObjectList.push_back(cat);
+	createObject("water bottle",													/* name		   */
+				"Water is cool, refreshing, and necessary for life.");				/* description */
+	createObject("sword",															/* name		   */
+				 "This crude blade is made from scraps of a worn-down building.");	/* description */
+	createObject("cat",																/* name		   */
+			   "This scrawny feral feline looks ready for a row.");					/* description */
 }
 
 //EXECUTE MOVE

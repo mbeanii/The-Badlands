@@ -1,4 +1,69 @@
 From "Master Plan.txt":
-Make the master object list a private static const member variable of the Object class:
-static const std::vector<Object> masterObjectList inside Object.h and Object.c.
+Make the master object list a global const variable inside Object.h and Object.c:
+const std::vector<Object> masterObjectList
 0001
+
+So, I actually think I'm okay with it as it is - moving it to global scope would
+actually be a step back as far as object-oriented implementation is concerned. A
+couple of changes are appropriate however:
+
+X Create a nondefault constructor for Objects so we can use Object(blah,blah,blah) to
+create Objects
+X Update createObjects to use the nondefault constructor.
+When testing this, I'm having Visual Studio compile errors. A lot of them and all
+kind of weird.
+https://stackoverflow.com/questions/42777424/visual-studio-2017-errors-on-standard-headers
+Looks like it's an installation issue with Visual Studio.
+I installed the recommended package. Then I clicked update on Visual Studio Community
+2017. It's kind of a big download (1.53 GB).
+This failed to resolve the issue. Troubleshooting solutions.
+There's an "if the problem still persists..." instruction. Following that. That fixed
+it. It seemed to be a compatibility issue going between Windows 10 on my home computer
+and Windows 7 on my work computer.
+    ? Can I do this in one line?
+        ? Is it possible to have a vector of distinct variables all with the same name?
+Or with no name at all. From Asteroids, try masterObjectsList.pushback(new Object(blah, blah, blah));
+X Create a member function within the Game class which will push a new Object to his
+masterObjectList with given properties.
+I was able to implemnt and test this.
+
+=======================================================================================
+2:50 PM
+I was able to implement and test this - merging to master.
+_______________________________________________________________________________________
+12:35 PM
+Creating a nondefault constructor for Objects
+_______________________________________________________________________________________
+12/02/2018 @ 12:10 PM
+Where is the master object list now? What changes will be required?
+It's a private member of the Game class (below).
+
+- A nondefault constructor for Objects will need to be created so we can use
+Object(blah,blah,blah); notation to create an object.
+
+- createObjects will need to be changed - probably moved to the Object class as well.
+
+class Game
+{
+private:
+	std::vector<Object> masterObjectList;
+	std::vector<Object *> startingEquipment;
+	PC pc;
+	StartArea startArea;
+	Area * pCurrentArea;
+	Location *pCurrentLocation;
+	std::string move = "";
+
+	void createObjects();
+	void printFullDescription();
+	void executeMove();
+	void executeMoveGet(std::string objectName);
+	void uiGetMove();
+	void parseMove();
+	void printIntro();
+	void pickUpObject(std::string objectName);
+	Object *lookupObjectFromName(std::string objectName);
+
+public:
+	Game();
+};
