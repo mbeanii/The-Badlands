@@ -1,0 +1,78 @@
+- Game
+    - Area
+        - Location
+            - Object (local list)
+            - NPC  (is a character) (local list)
+    - PC (is a character)
+    - Command
+- Object
+    - Master List (const variable in the file)
+- Events
+- Effect Parser
+==================================================================================================
+
+Object:
+- Make the master object list a private static const member variable of the Object class:
+static const std::vector<Object> masterObjectList inside Object.h and Object.c.
+0001
+
+Game:
+- Move starting equipment to the PC's default constructor.
+- Change "move" to "command" (std::string move, getMove, parseMove, executeMove, etc.)
+- Verify the getCommand, parseCommand, and executeCommand workflow
+
+Commands:
+- Implement "examine" or "x" command to return the description of an object either in your
+inventory or in the current location
+- Implement "north", "south", "east", and "west" full name commands as alternatives to the
+"n", "s", "e", "w" commands
+- Permissions, error handling, documentation
+
+Character:
+- Equiping items
+- Attributes, skills, powers, abilities, experience points, etc.
+- Combat
+- Team
+    - Play as one main character, but with a party (like Baldur's Gate I/II)
+    - Adding/removing NPC team members
+
+Area/Location:
+- Verify the Area/Location workflow - where and how are the different areas stored?
+The different locations? Somehow each area should contain its locations, each location
+should contain its buildings, and each building should contain its rooms. We also want
+a scaleable architecture so we can implement maybe countries having multiple areas,
+continents with multiple countries, worlds with multiple continents, galaxies with multiple
+worlds, universes with multiple galaxies, etc. We should also be able to scale the other
+direction in case we need subrooms - maybe if you're shrunk, then you'd maybe want a whole 
+big space that is the "table," say, as one use case. Of course the use case for the galaxies/
+universes capability would be a sci-fi world where interdimensional travel is a reality.
+- Traveling between Areas (and beyond) - it'd probably be a specific location you'd have to
+visit, just like within a building, you could only travel between rooms with doors between
+them.
+- Fast Travel - probably from the map
+- Building/Room (subsets and subsubsets of locations)
+- Map
+    - Add locations you have visited to your area map
+    - Buildings you have visited to your location map?
+    - Rooms you have visited to your building map (ie, Legend of Zelda dungeons?)
+
+Events?
+- Combat
+    - Trigger
+    - Description
+    - Effect:
+e.g., you get burned, you lose a level, you activate a trap, you are seen by the monster, etc.
+        - Maybe the effect from the event is added to an "effects to be processed on this
+character this cycle" attribute list on each character, then each cycle the effect parser is
+called to cycle through each "character here" and apply each effect.
+
+Effect parser:
+Should be usable by:
+    - events
+    - spells
+    - items
+        - one shot,
+        - equippable items with a permanent effect on the user
+        - equippable weapons with effects on a target
+            - Weapons with special hit effects (e.g., posion arrows, flaming sword, etc.)
+            - Items with a special use/property (e.g., ring of webs, etc.)

@@ -1,0 +1,4 @@
+From "Master Plan.txt":
+Make the master object list a private static const member variable of the Object class:
+static const std::vector<Object> masterObjectList inside Object.h and Object.c.
+0001
