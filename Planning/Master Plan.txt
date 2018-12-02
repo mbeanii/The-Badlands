@@ -35,6 +35,16 @@ possible alternatives.
 - Verify the getCommand, parseCommand, and executeCommand workflow
 - UI (where is this implemented? Game? Where should it be implemented? Its own class, maybe?)
     - Add a period to "You cant see a <object> here" error message.
+    - Options for printing inventory? How to print equipped items - Little ASCII
+diagram of a guy with labels:
+  _    Head      :
+ ( )   Neck      :
+ _|_   Left Arm  :
+|---|  Right Arm :
+ ---   Chest     :
+_| |_  Feet      :
+       Left Ring :
+       Right Ring:
 
 Commands:
 - Implement "examine" or "x" command to return the description of an object either in your

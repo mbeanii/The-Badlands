@@ -1,0 +1,54 @@
+    - Options for printing inventory? How to print equipped items - Little ASCII
+diagram of a guy with arrows pointing to places:
+                              _
+Helmet                       ( )         
+                             _|___   Right Arm                 | <-- 28th character
+Left Arm                    |---        
+                             ---     Armor
+Feet                        _| |_     
+
+This approach would mean a 28 character maximum for object names.
+Greater Sword of Apprehension (Keen) (37 characters) - Much too long.
+Or we'd have to have some smarts in there so it wrapped to the next line, which would
+buy us 28 more characters for a total of 56, but it would make it harder to read.
+It'll already require a little bit of smarts to correctly format strings of varying
+lengths.
+A word wrap might be possible so it pans the string within the alloted space, but
+this might be tricky to implement.
+Abbreviations might help
+Gtr Swd of Apprehension (Kn) (28 characters) - Though for readablity, this might
+not be the best either.
+What about something like:
+
+ ______________________
+/ ____________________  \
+| /                    \ |
+| |          _         | |
+| |  ____   ( )        | |
+| | /       _|_        | |
+| | |   _  |---|    ___| |
+| | |  /    ---     _____|
+| | |  |   _| |_
+| | |  |
+| | |  |   |
+| | |  |   \_ Feet     :
+| | |  \_____ Left Arm :
+| | \________ Head     :
+| \__________ Right Arm:
+\____________ Chest    :
+
+This would be way less formatting heavy because the strings won't throw off the
+ASCII art.
+
+But what about something simple like:
+
+  _    Head      :
+ ( )   Neck      :
+ _|_   Left Arm  :
+|---|  Right Arm :
+ ---   Chest     :
+_| |_  Feet      :
+       Left Ring :
+       Right Ring:
+
+I like the last one the best, though the rings are a little clunky...
