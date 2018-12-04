@@ -97,8 +97,10 @@ void Game::createObjects()
 {
 	createObject("water bottle",													/* name		   */
 				"Water is cool, refreshing, and necessary for life.");				/* description */
+
 	createObject("sword",															/* name		   */
 				 "This crude blade is made from scraps of a worn-down building.");	/* description */
+
 	createObject("cat",																/* name		   */
 			   "This scrawny feral feline looks ready for a row.");					/* description */
 }
@@ -131,7 +133,7 @@ void Game::executeMove()
 void Game::pickUpObject(std::string objectName)
 {
 	// Remove it from the location and add it to the pc's inventory.
-	pc.pushInventory(pCurrentLocation->lookupObjectFromName(objectName));
+	pc.pushInventory(pCurrentLocation->lookupObjectByName(objectName));
 	pCurrentLocation->removeObject(objectName);
 }
 

@@ -12,8 +12,7 @@
 ==================================================================================================
 
 Object:
-- Make the master object list a global const variable inside Object.h and Object.c:
-const std::vector<Object> masterObjectList
+X Improve the master object list.
 0001
 - Error handle lookupObjectByName. If an object isn't found in the list, an assert should be
 triggered:
