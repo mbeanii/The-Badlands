@@ -36,6 +36,7 @@
 #include "Location.h"
 #include "Area.h"
 #include "Game.h"
+#include <assert.h> /* For assert */
 
 Game::Game()
 {
@@ -51,13 +52,13 @@ Game::Game()
 	pCurrentArea->setpMasterObjectList(&masterObjectList);
 
 	// DEFINE CHARACTERS
-	startingEquipment.push_back(lookupObjectFromName("water bottle"));
+	startingEquipment.push_back(lookupObjectByName("water bottle"));
 	pc.setInventory(startingEquipment);
 
 
 	// PLACE OBJECTS
-	startArea.farm.pushObject(lookupObjectFromName("sword"));
-	startArea.mountain.pushObject(lookupObjectFromName("cat"));
+	startArea.farm.pushObject(lookupObjectByName("sword"));
+	startArea.mountain.pushObject(lookupObjectByName("cat"));
 
 	// INITIALIZE
 	printIntro();
@@ -73,13 +74,16 @@ Game::Game()
 	}
 }
 
-Object *Game::lookupObjectFromName(std::string objectName)
+Object *Game::lookupObjectByName(std::string objectName)
 {
 	for (std::vector<Object *>::iterator it = masterObjectList.begin(); it != masterObjectList.end(); ++it)
 	{
 		if ((*it)->getName() == objectName)
 			return *it;
 	}
+
+	/* If the object was not found, throw an assert. */
+	assert(false);
 }
 
 void Game::printFullDescription()
