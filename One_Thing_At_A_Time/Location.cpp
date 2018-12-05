@@ -11,12 +11,11 @@ Object *Location::lookupObjectByName(std::string objectName)
 	{
 		if ((*it)->getName() == objectName)
 			return (*it);
-		else
-		{
-			std::cout << "Object not found: " << objectName;
-			assert(false);
-		}
 	}
+
+	/* If object was not in the list */
+	std::cout << "Object not found: " << objectName;
+	assert(false);
 }
 
 /* Public functions */
