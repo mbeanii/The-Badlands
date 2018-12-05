@@ -27,7 +27,7 @@ private:
 	void parseMove();
 	void printIntro();
 	void pickUpObject(std::string objectName);
-	Object *lookupObjectFromName(std::string objectName);
+	Object *lookupObjectByName(std::string objectName);
 
 public:
 	Game();
