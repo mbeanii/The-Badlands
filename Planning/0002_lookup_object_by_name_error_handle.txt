@@ -12,6 +12,46 @@ Or an exception should be thrown.
 Working on part 2 above: 
 "Change this so it's handled by the caller."
 
+I've modified the function so it will return NULL if the object was not found. The caller will need to
+throw an error if this occurs... Returning an error code would be cleaner. I think I may choose to do that
+instead, even though it'll require more a more major modification to the code.
+
+Location's:
+There are two calls to lookupObjectByName right now - pickUpObject in Game and removeObject in Location.
+
+Game's: 3 calls in Game's default constructor
+
+Location has its own lookupObjectByName function, which means Location will need its own Location enum,
+and the methods should be renamed to avoid confusion
+X Add an enum to Game
+X Rename Game's lookupObjectsbyName to masterLookupObjectsByName
+X Change masterLookupObjectsByName to return an error code
+X Change calls to check the error code/throw an error
+X Make sure the game still compiles and runs
+The game compiled, but crashed. I'll need to investigate.
+PC's inventory contains a NULL. The function didn't behave properly.
+We're pushing back a NULL. The pass by pointer didn't behave.
+A pointer to a pointer did the trick.
+X Set up the exception handler on the calls.
+Looks like I can put the function back to the way it was, then replace the return error with:
+throw "Object not found: ";,
+and add the following to the call:
+try{
+call;
+} catch (const char* msg)
+{
+    cerr << msg << <variableName>; 
+}
+It works nicely.
+
+- Add an enum to location
+- Rename location's lookupObjectByName to lookupObjectsHereByName
+- Change lookupObjectsHereByName to return an error code
+- Change calls to check the error code and throw errors
+- Make sure the game still compiles and runs
+- Set up the exception handler on the calls.
+
+
 12/5/2018 @ 6:10 AM
 Interesting. I included the else assert(false) and my program threw an exception - I'll want to
 debug this...

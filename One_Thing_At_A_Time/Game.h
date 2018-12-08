@@ -7,6 +7,16 @@
 #include "Location.h"
 #include "Character.h"
 
+/* Enums */
+
+enum Enum_Game_Error_Codes
+{
+	GAME_ERROR_NO_ERROR         = 0,
+	GAME_ERROR_OBJECT_NOT_FOUND = 1,		/* lookupObjectByName */
+	GAME_ERROR_MAX_ERROR_CODE   = 2,
+};
+
+/* Classes */
 
 class Game
 {
@@ -17,7 +27,7 @@ private:
 	StartArea startArea;
 	Area * pCurrentArea;
 	Location *pCurrentLocation;
-	std::string move = "";
+	std::string command = "";
 
 	void createObjects();
 	void printFullDescription();
@@ -27,7 +37,7 @@ private:
 	void parseMove();
 	void printIntro();
 	void pickUpObject(std::string objectName);
-	Object *lookupObjectByName(std::string objectName);
+	Object *masterObjectLookup(const std::string objectName);
 
 public:
 	Game();

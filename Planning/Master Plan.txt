@@ -1,14 +1,17 @@
-- Game
-    - Area
-        - Location
-            - Object (local list)
-            - NPC  (is a character) (local list)
+The Engine:
+- Game game
+    - Area (vector) country
+        - Location (2D Array of pointers to locations) pLocationMap
+            - Object (vector of pointers to objects) objectsHere
+            - NPC ("is a" Character) (vector of pointers to NPCs) charactersHere
     - PC (is a character)
+        - NPC (vector of pointers to characters including the PC) party
+        - inventory (vector of pointers to objects)
+    - Object (vector of pointers to Objects) masterObjectList
     - Command
-- Object
-- Master Object List (const variable in the file)
-- Events
-- Effect Parser
+
+    - Events
+    - Effect Parser
 ==================================================================================================
 
 Object:
@@ -23,10 +26,20 @@ assert(false);
 Or an exception should be thrown.
     - Change this so it returns an error code instead and is handled at the next level (ie, throws an
 error there. It should throw an exception rather than the assert (for learning).
+- Write a function in Game which takes a location and vector of object strings and a location, looks up the 
+objects, and places them in the location.
+- Write a function which takes a character and a vector of object strings, looks up the objects, and places
+them in the character's inventory.
 - Maybe there's a storage container object. Maybe some you can get (box, bag of holding, etc.),
 and some you can't (barrel, chest, infinite void, etc.) They should be implemented so you
 can get an object from them by name, e.g., "get necklace from box", or so that you can browse
 the contents of the box, e.g., "search box"
+- Include functionality to replace the initial description string with a second string once the object is
+obtained:
+e.g., "This sword is lodged in the rocky crag of the cliffside - it looks like it could be wrested
+free with a little effort... if only you could climb up to it."
+Then once obtained and forever after,
+"This plain steel sword is a sharp and formidable weapon."
 
 Game:
 - Investigate //DEFINE LOCATIONS section of the Game() default constructor. Think about
@@ -46,15 +59,22 @@ diagram of a guy with labels:
 _| |_  Feet      :
        Left Ring :
        Right Ring:
+- Make the printed message a little more sophisticated ie, print the location's description only the first
+time it is visited,
+- Write PLACE and DEFINE functions to take a vector of strings and do the proper lookups to add them to the 
+appropriate lists. Include exception handling here too.
 
 Commands:
-- Implement "examine" or "x" command to return the description of an object either in your
-inventory or in the current location
+- Implement "examine" or "x" command to return the description of an object either in your 
+inventory or in the current location; the description of the current location (also, "look");
+or the description of a character (including "x self")
+- Implement "look", "examine," or "x" to return the description of the current location.
 - Implement "north", "south", "east", and "west" full name commands as alternatives to the
-"n", "s", "e", "w" commands
-- Permissions, error handling, documentation
+"n", "s", "e", "w" commands.
+- Permissions, error handling, documentation.
 
 Character:
+- printInventory: Troubleshoot picking up multiple of the same item "catcat"
 - Equiping items
 - Attributes, skills, powers, abilities, experience points, etc.
 - Combat

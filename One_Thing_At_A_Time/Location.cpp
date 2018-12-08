@@ -3,8 +3,6 @@
 #include <iostream> /* For cout */
 
 /* Private functions */
-
-
 Object *Location::lookupObjectByName(std::string objectName)
 {
 	for (std::vector<Object *>::iterator it = objectsHere.begin(); it != objectsHere.end(); ++it)
@@ -14,8 +12,7 @@ Object *Location::lookupObjectByName(std::string objectName)
 	}
 
 	/* If object was not in the list */
-	std::cout << "Object not found: " << objectName;
-	assert(false);
+	return NULL;
 }
 
 /* Public functions */

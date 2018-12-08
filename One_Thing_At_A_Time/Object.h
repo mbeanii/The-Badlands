@@ -21,5 +21,6 @@ public:
 	void setRemoveMe(bool inputRemoveMe) { removeMe = inputRemoveMe; };
 
 	/* Constructors */
-	Object(std::string inputName, std::string inputDescription) : name(inputName), description(inputDescription) {}
+	Object(std::string inputName, std::string inputDescription) : name(inputName), description(inputDescription), removeMe(false) {}
+	Object() : name(""), description(""), removeMe(false) {};
 };

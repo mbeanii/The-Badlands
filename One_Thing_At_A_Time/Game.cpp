@@ -43,7 +43,7 @@ Game::Game()
 	// INITIALIZE VARIABLES
 	pCurrentArea = &startArea;
 	pCurrentLocation = &startArea.farm;
-	move = "";
+	command = "";
 
 	// DEFINE OBJECTS
 	createObjects();
@@ -52,13 +52,34 @@ Game::Game()
 	pCurrentArea->setpMasterObjectList(&masterObjectList);
 
 	// DEFINE CHARACTERS
-	startingEquipment.push_back(lookupObjectByName("water bottle"));
-	pc.setInventory(startingEquipment);
+	std::string objectName = "";
+	try
+	{
+		// Store the object name as a variable for use by the exception handler.
+		objectName = "water bottle";
+		startingEquipment.push_back(masterObjectLookup(objectName));
 
+		pc.setInventory(startingEquipment);
+	}
+
+	catch (const char* msg)
+	{
+		std::cerr << msg << objectName << std::endl;
+	}
 
 	// PLACE OBJECTS
-	startArea.farm.pushObject(lookupObjectByName("sword"));
-	startArea.mountain.pushObject(lookupObjectByName("cat"));
+	try
+	{
+		objectName = "sword";
+		startArea.farm.pushObject(masterObjectLookup(objectName));
+
+		objectName = "cat";
+		startArea.mountain.pushObject(masterObjectLookup(objectName));
+	}
+	catch (const char* msg)
+	{
+		std::cerr << msg << objectName << std::endl;
+	}
 
 	// INITIALIZE
 	printIntro();
@@ -74,16 +95,18 @@ Game::Game()
 	}
 }
 
-Object *Game::lookupObjectByName(std::string objectName)
+Object *Game::masterObjectLookup(const std::string objectName)
 {
 	for (std::vector<Object *>::iterator it = masterObjectList.begin(); it != masterObjectList.end(); ++it)
 	{
 		if ((*it)->getName() == objectName)
+		{
 			return *it;
+		}
 	}
 
-	/* If the object was not found, throw an assert. */
-	assert(false);
+	/* Report that the object was not found in the list. */
+	throw "Object not found: ";
 }
 
 void Game::printFullDescription()
@@ -112,22 +135,22 @@ void Game::createObjects()
 //EXECUTE MOVE
 void Game::executeMove()
 {
-	if (move == "n" && pCurrentArea->checkNorth(pCurrentLocation))
+	if (command == "n" && pCurrentArea->checkNorth(pCurrentLocation))
 	{
 		pCurrentLocation = pCurrentArea->getNorth(pCurrentLocation);
 		printFullDescription();
 	}
-	else if (move == "e" && pCurrentArea->checkEast(pCurrentLocation))
+	else if (command == "e" && pCurrentArea->checkEast(pCurrentLocation))
 	{
 		pCurrentLocation = pCurrentArea->getEast(pCurrentLocation);
 		printFullDescription();
 	}
-	else if (move == "s" && pCurrentArea->checkSouth(pCurrentLocation))
+	else if (command == "s" && pCurrentArea->checkSouth(pCurrentLocation))
 	{
 		pCurrentLocation = pCurrentArea->getSouth(pCurrentLocation);
 		printFullDescription();
 	}
-	else if (move == "w" && pCurrentArea->checkWest(pCurrentLocation))
+	else if (command == "w" && pCurrentArea->checkWest(pCurrentLocation))
 	{
 		pCurrentLocation = pCurrentArea->getWest(pCurrentLocation);
 		printFullDescription();
@@ -136,6 +159,9 @@ void Game::executeMove()
 
 void Game::pickUpObject(std::string objectName)
 {
+	Enum_Game_Error_Codes gameError = GAME_ERROR_NO_ERROR;
+	Object *myObject = NULL;
+
 	// Remove it from the location and add it to the pc's inventory.
 	pc.pushInventory(pCurrentLocation->lookupObjectByName(objectName));
 	pCurrentLocation->removeObject(objectName);
@@ -161,16 +187,16 @@ void Game::executeMoveGet(std::string objectName)
 
 void Game::uiGetMove()
 {
-	std::getline(std::cin,move);
+	std::getline(std::cin,command);
 	std::cin.clear();
 }
 
 void Game::parseMove()
 {
-	if (move.length() == 1)
+	if (command.length() == 1)
 		executeMove();
 
-	std::stringstream ss(move);
+	std::stringstream ss(command);
 	std::string moveFirstWord = "";
 	std::string moveSecondWord = "";
 	std::string moveThirdWord = "";
