@@ -1,0 +1,77 @@
+X Error handle lookupObjectByName. If an object isn't found in the list, an assert should be
+triggered:
+ else
+{
+assert(false);
+},
+Or an exception should be thrown.
+
+- Change this so it's handled by the caller.
+=======================================================================================
+12/11/2018 @ 6:01 AM
+Implemented and tested. Closing out story and pushing.
+_______________________________________________________________________________________
+12/6/2018 @ 5:56 AM
+Working on part 2 above: 
+"Change this so it's handled by the caller."
+
+I've modified the function so it will return NULL if the object was not found. The caller will need to
+throw an error if this occurs... Returning an error code would be cleaner. I think I may choose to do that
+instead, even though it'll require more a more major modification to the code.
+
+Location's:
+There are two calls to lookupObjectByName right now - pickUpObject in Game and removeObject in Location.
+
+Game's: 3 calls in Game's default constructor
+
+Location has its own lookupObjectByName function, which means Location will need its own Location enum,
+and the methods should be renamed to avoid confusion
+X Add an enum to Game
+X Rename Game's lookupObjectsbyName to masterLookupObjectsByName
+X Change masterLookupObjectsByName to return an error code
+X Change calls to check the error code/throw an error
+X Make sure the game still compiles and runs
+The game compiled, but crashed. I'll need to investigate.
+PC's inventory contains a NULL. The function didn't behave properly.
+We're pushing back a NULL. The pass by pointer didn't behave.
+A pointer to a pointer did the trick.
+X Set up the exception handler on the calls.
+Looks like I can put the function back to the way it was, then replace the return error with:
+throw "Object not found: ";,
+and add the following to the call:
+try{
+call;
+} catch (const char* msg)
+{
+    cerr << msg << <variableName>; 
+}
+It works nicely.
+
+X Rename location's lookupObjectByName to lookupObjectsHere
+X Set up the exception handler on the calls.
+X Make sure the game still compiles and runs
+X Set up a bogus call to check the exception handler
+While doing this, I noticed "checkObjectIsHere" is doing what the exception handler should do.
+X Remove checkObjectIsHere and replace him with the exception handler.
+This will require MOVING the try/catch block from pickUpObject, as
+executeMove (the only function to call checkObjectIsHere), is also the caller of pickUpObject.
+An exception try/catch block around the call to pickUpObject can replace the function "checkObjectIsHere".
+
+12/5/2018 @ 6:10 AM
+Interesting. I included the else assert(false) and my program threw an exception - I'll want to
+debug this...
+
+Found it - the assert shouldn't have been an else to the if; rather it should follow the loop.
+Fixed. Tested. It works, so I'm moving this story to completed, pushing, and merging the story.
+
+12/4/18 @ 6:00 AM
+I just pushed the branch to master, then created a new branch for 0002 for the assert else statement,
+which is the main change for this story.
+
+12/3/18 @ 5:47 AM
+Changed function name to "lookupObjectByName" from "lookupObjectFromName"
+Next step would be to test this.
+I also neglected to make a seperate git branch for this. That should be resolved.
+The change should have a git branch.
+
+

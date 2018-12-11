@@ -7,6 +7,7 @@
 #include "Location.h"
 #include "Character.h"
 
+/* Classes */
 
 class Game
 {
@@ -17,7 +18,7 @@ private:
 	StartArea startArea;
 	Area * pCurrentArea;
 	Location *pCurrentLocation;
-	std::string move = "";
+	std::string command = "";
 
 	void createObjects();
 	void printFullDescription();
@@ -27,7 +28,7 @@ private:
 	void parseMove();
 	void printIntro();
 	void pickUpObject(std::string objectName);
-	Object *lookupObjectByName(std::string objectName);
+	Object *masterObjectLookup(const std::string objectName);
 
 public:
 	Game();
