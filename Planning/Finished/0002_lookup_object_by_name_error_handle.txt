@@ -8,6 +8,9 @@ Or an exception should be thrown.
 
 - Change this so it's handled by the caller.
 =======================================================================================
+12/11/2018 @ 6:01 AM
+Implemented and tested. Closing out story and pushing.
+_______________________________________________________________________________________
 12/6/2018 @ 5:56 AM
 Working on part 2 above: 
 "Change this so it's handled by the caller."
@@ -44,13 +47,15 @@ call;
 }
 It works nicely.
 
-- Add an enum to location
-- Rename location's lookupObjectByName to lookupObjectsHereByName
-- Change lookupObjectsHereByName to return an error code
-- Change calls to check the error code and throw errors
-- Make sure the game still compiles and runs
-- Set up the exception handler on the calls.
-
+X Rename location's lookupObjectByName to lookupObjectsHere
+X Set up the exception handler on the calls.
+X Make sure the game still compiles and runs
+X Set up a bogus call to check the exception handler
+While doing this, I noticed "checkObjectIsHere" is doing what the exception handler should do.
+X Remove checkObjectIsHere and replace him with the exception handler.
+This will require MOVING the try/catch block from pickUpObject, as
+executeMove (the only function to call checkObjectIsHere), is also the caller of pickUpObject.
+An exception try/catch block around the call to pickUpObject can replace the function "checkObjectIsHere".
 
 12/5/2018 @ 6:10 AM
 Interesting. I included the else assert(false) and my program threw an exception - I'll want to

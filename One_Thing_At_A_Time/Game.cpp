@@ -61,7 +61,6 @@ Game::Game()
 
 		pc.setInventory(startingEquipment);
 	}
-
 	catch (const char* msg)
 	{
 		std::cerr << msg << objectName << std::endl;
@@ -106,7 +105,7 @@ Object *Game::masterObjectLookup(const std::string objectName)
 	}
 
 	/* Report that the object was not found in the list. */
-	throw "Object not found: ";
+	throw ("You can't see a ");
 }
 
 void Game::printFullDescription()
@@ -159,11 +158,8 @@ void Game::executeMove()
 
 void Game::pickUpObject(std::string objectName)
 {
-	Enum_Game_Error_Codes gameError = GAME_ERROR_NO_ERROR;
-	Object *myObject = NULL;
-
 	// Remove it from the location and add it to the pc's inventory.
-	pc.pushInventory(pCurrentLocation->lookupObjectByName(objectName));
+	pc.pushInventory(pCurrentLocation->lookupObjectHere(objectName));
 	pCurrentLocation->removeObject(objectName);
 }
 
@@ -172,17 +168,18 @@ void Game::executeMoveGet(std::string objectName)
 {
 	transform(objectName.begin(),objectName.end(),objectName.begin(),tolower);
 
-	if (pCurrentLocation->checkObjectIsHere(objectName))
-		{
-			pickUpObject(objectName);
-			printFullDescription();
-			return;
-		}
+	try
+	{
+		pickUpObject(objectName);
+		printFullDescription();
+		return;
+	}
 
-		else	// The object isn't there.
-		{
-			std::cout << "You can't see a " << objectName << " here\n";
-		}
+	// The object isn't there.
+	catch (const char *msg)
+	{
+		std::cerr << msg << objectName << std::endl;
+	}
 }
 
 void Game::uiGetMove()

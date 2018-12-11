@@ -7,15 +7,6 @@
 #include "Location.h"
 #include "Character.h"
 
-/* Enums */
-
-enum Enum_Game_Error_Codes
-{
-	GAME_ERROR_NO_ERROR         = 0,
-	GAME_ERROR_OBJECT_NOT_FOUND = 1,		/* lookupObjectByName */
-	GAME_ERROR_MAX_ERROR_CODE   = 2,
-};
-
 /* Classes */
 
 class Game

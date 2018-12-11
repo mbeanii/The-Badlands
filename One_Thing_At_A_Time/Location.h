@@ -28,8 +28,7 @@ public:
 	short getNextCol() { return (col + 1); };
 	short getPrevRow() { return (row - 1); };
 	short getPrevCol() { return (col - 1); };
-	bool checkObjectIsHere(std::string objectName);
-	Object *lookupObjectByName(std::string objectName);
+	Object *lookupObjectHere(std::string objectName);
 
 	/* Mutators */
 	void setName(std::string inputName) { name = inputName; };
