@@ -24,8 +24,9 @@ triggered:
 assert(false);
 },
 Or an exception should be thrown.
-    - Change this so it returns an error code instead and is handled at the next level (ie, throws an
+X Change this so it returns an error code instead and is handled at the next level (ie, throws an
 error there. It should throw an exception rather than the assert (for learning).
+The error code was entirely unnecessary after implementing the exception. The error code was removed.
 - Write a function in Game which takes a location and vector of object strings and a location, looks up the 
 objects, and places them in the location.
 - Write a function which takes a character and a vector of object strings, looks up the objects, and places
