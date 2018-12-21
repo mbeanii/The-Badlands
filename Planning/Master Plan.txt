@@ -14,6 +14,10 @@ The Engine:
     - Effect Parser
 ==================================================================================================
 
+Random:
+populateCountry needs to be unstubbed, as does // DEFINE LOCATIONS
+lookupLocationHere might be broken (returning nullLocation)
+
 Object:
 X Improve the master object list.
 0001
@@ -64,6 +68,10 @@ _| |_  Feet      :
 time it is visited,
 - Write PLACE and DEFINE functions to take a vector of strings and do the proper lookups to add them to the 
 appropriate lists. Include exception handling here too.
+- Write getters and setters for the Game class -- The customer should be able to edit everything about
+their game without having to worry about the icky engine implementation details. 
+- Edit printIntro to utilize an intro string variable in the game class that the customer should be able to
+set. Variable. Set. Print. Sounds like a li'l baby intro class may be in order.
 
 Commands:
 - Implement "examine" or "x" command to return the description of an object either in your 
@@ -84,6 +92,12 @@ Character:
     - Adding/removing NPC team members
 
 Area/Location:
+- Drastically change Areas - startArea shouldn't have its own class, it should be an instance of a
+class, presumably created at the Game level.
+- pLocationMap should be changed to a vector of Locations... Maybe an overload of the double [] accessor
+would make sense, or a helper function that takes two indicies and returns the value at that "grid"
+location. Thus, we need a mapping sceme 1d onto 2d -- I forget what those are called...
+- Create an Area nondefault constructor.
 - Building/Room (subsets and subsubsets of locations)
 - Verify the Area/Location workflow - where and how are the different areas stored?
 The different locations? Somehow each area should contain its locations, each location

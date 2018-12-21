@@ -1,0 +1,90 @@
+X Write a function in Game which takes a location and vector of object strings and a location string, looks 
+up the objects, looks up the location and places the objects in the location.
+X Drastically change Areas - startArea shouldn't have its own class, it should be an instance of a
+class, presumably created at the Game level.
+- Utilize this function in the default game constructor. This may require structural edits to Area, which
+is the first item under Area in the master plan txt file.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The following item from the Master Plan is being added to the scope of this story:
+X Drastically change Areas - startArea shouldn't have its own class, it should be an instance of a
+class, presumably created at the Game level.
+X Looks like I'll need new files, "map.h" and "map.c" They will be at the Game Level, or eventually above it.
+They will contain all the details of where the locations and areas will go. How will that information be
+stored? Probably just an enum. The existing architecture should work... In which case, I won't need a .c
+file, just a .h.
+Map.h created.
+X Create the following function:
+	void Area::createLocation(std::string name, std::string description, int row, int col)
+    X This will require changing pLocationMap to just "locationMap". This is going to get messy.
+I did this. As expected, it had a number of ripple effects. The build still works, but my placed objects
+are gone now. My inventory still works, though.
+I stepped through the code where the objects are getting pushed, and it looks like that part of it is working
+okay. I'll need to investigate further.
+Looks like the issue is that currentLocation isn't getting set properly.
+Well, the sword is back; Check location doesn't seem to be doing it's job. Also, I've created locations named
+"." that let me travel to them. That'll need to be resolved. Also, I'll need to figure out why my cat isn't
+making it to the mountain.
+
+Okay -- I fixed the vector access unhandled exceptions by fixing up checkArea. I can now set the area location
+map row col define to 2 and everyone is happy. However, the cat still isn't in the mountain, and if I don't
+pick up the sword the first time I'm at the mountain, the sword vanishes. I suspect the cat is getting to
+the mountain, but it's later getting erased. I'll track this down tomorrow.
+
+So, the cat actually *is* in the mountain -- the game just isn't seeing it there.
+
+Area::printObjectsHere may be broken.
+Location::lookupObjectsHere too.
+
+startArea has a member named mountain whose objectsHere contains a cat.
+
+However, pCurrentLocation is set to mountain, but doesn't contain a cat. Where is that set?
+Game::executeMove()
+
+The confusion is that Game::executeMove() is using pCurrentArea, not startArea. It's probably about time to take
+startArea out of the game (Hooray!) One problem is that hte locationMap only has 2 locations in it... the
+moisture farm and the barren waste. I'm not sure how the mountain is showing up at all!
+
+But also, the location Map is supposed to be a 2D array, so I should look at that more closely.
+
+Yeah, okay nevermind. The locations are all in there. I think the fix is just to set the original location to
+pCurrentArea-><location> instead of startArea-><location>, and also to push the objects back to pCurrentArea's
+version instead of startArea's version. This is coming together well.
+
+populateCountry needs to be unstubbed, as does // DEFINE LOCATIONS
+lookupLocationHere might be broken (returning nullLocation)
+
+The next step is probably to try to remove startArea entirely from the game and fix what needs fixing.
+
+IT WORKS!
+
+____________________________________________________________________________________________________________
+/* Mutator */
+void placeObjects(std::vector<std::string> objectList, std::string locationName)
+{
+    try
+    {
+        find the location (may need a helper function - inside should throw an error if there's no location)
+
+        for all of the objects
+            add the object to the location (I think there's already a method for this - does it throw errors?)
+    }
+    catch(char *message)
+    {
+        cerr << message << endl;
+    }
+        
+}
+
+X Add a vector of Areas to Game.
+country
+X Push_back startArea onto the vector of Areas.
+X Write masterLocationLookup using masterObjectLookup as a guide (it will have to search
+each Area in the Area vector for the location - sounds like a nested for loop).
+
+Problem - as it currently is, *pLocationMap is a 2D Array, not a vector, so nested iterators won't do...
+It might be cleaner to to turn *pLocationMap into a vector at some point, but for now, we should use what is
+there to access it as it is.
+
+X Adding a lookupLocationHere function to Area.
+
+X Write placeObject - another helper function

@@ -14,9 +14,9 @@ class Game
 private:
 	std::vector<Object *> masterObjectList;
 	std::vector<Object *> startingEquipment;
+	std::vector<Area> country;
 	PC pc;
-	StartArea startArea;
-	Area * pCurrentArea;
+	Area *pCurrentArea;
 	Location *pCurrentLocation;
 	std::string command = "";
 
@@ -28,9 +28,20 @@ private:
 	void parseMove();
 	void printIntro();
 	void pickUpObject(std::string objectName);
+	void populateCountry();
 	Object *masterObjectLookup(const std::string objectName);
+	Location *masterLocationLookup(const std::string locationName);
 
 public:
 	Game();
-	void Game::createObject(std::string name, std::string description) { masterObjectList.push_back(new Object(name, description)); }
+
+	/* Mutators */
+
+	/* Object */
+	void createObject(std::string name, std::string description) { masterObjectList.push_back(new Object(name, description)); }
+	void placeObject(std::string objectName, std::string locationName) { masterLocationLookup(locationName)->pushObject(masterObjectLookup(objectName)); }
+	void placeObjects(std::vector<std::string> objectList, std::string locationName);
+
+	/* Area */
+	void createArea(std::vector<Location> locationMap);
 };
