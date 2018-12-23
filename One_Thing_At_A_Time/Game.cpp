@@ -29,6 +29,7 @@
 #include <vector>
 #include <iterator>
 #include <sstream>   // for stringstream
+#include <assert.h> /* For assert */
 
 /* Locally defined header files */
 #include "Character.h"
@@ -36,48 +37,49 @@
 #include "Location.h"
 #include "Area.h"
 #include "Game.h"
-#include <assert.h> /* For assert */
+#include "Map.h"
 
 Game::Game()
 {
+
+	// POPULATE COUNTRY
+	populateCountry();
+
 	// INITIALIZE VARIABLES
-	pCurrentArea = &startArea;
-	pCurrentLocation = &startArea.farm;
+	pCurrentArea = &country[0];
+	pCurrentLocation = country[0].lookupLocationHere("moisture farm");
 	command = "";
 
 	// DEFINE OBJECTS
 	createObjects();
 
 	// DEFINE LOCATIONS
-	pCurrentArea->setpMasterObjectList(&masterObjectList);
+//	pCurrentArea->setpMasterObjectList(&masterObjectList);
 
 	// DEFINE CHARACTERS
-	std::string objectName = "";
 	try
 	{
-		// Store the object name as a variable for use by the exception handler.
-		objectName = "water bottle";
-		startingEquipment.push_back(masterObjectLookup(objectName));
+		startingEquipment.push_back(masterObjectLookup("water"));
 
 		pc.setInventory(startingEquipment);
-	}
-	catch (const char* msg)
-	{
-		std::cerr << msg << objectName << std::endl;
-	}
 
 	// PLACE OBJECTS
-	try
-	{
-		objectName = "sword";
-		startArea.farm.pushObject(masterObjectLookup(objectName));
+		//startArea.farm.pushObject(masterObjectLookup("sword")); // TODO change object push to placeObject("sword", "farm");
+		placeObject("sword", "moisture farm");
 
-		objectName = "cat";
-		startArea.mountain.pushObject(masterObjectLookup(objectName));
+		//startArea.mountain.pushObject(masterObjectLookup("cat")); // TODO change object push
+		placeObject("cat", "mountain");
+
+		std::vector<std::string> objectVector;
+		objectVector.push_back("cat");
+		objectVector.push_back("sword");
+		objectVector.push_back("water");
+
+		placeObjects(objectVector, "water tower");
 	}
-	catch (const char* msg)
+	catch (char *msg)
 	{
-		std::cerr << msg << objectName << std::endl;
+		std::cerr << msg << std::endl;
 	}
 
 	// INITIALIZE
@@ -89,8 +91,15 @@ Game::Game()
 
 	while (1)
 	{
-		uiGetMove();
-		parseMove();
+		try
+		{
+			uiGetMove();
+			parseMove();
+		}
+		catch (char *msg)
+		{
+			std::cerr << msg << std::endl;
+		}
 	}
 }
 
@@ -104,8 +113,8 @@ Object *Game::masterObjectLookup(const std::string objectName)
 		}
 	}
 
-	/* Report that the object was not found in the list. */
-	throw ("You can't see a ");
+	/* If the object was not found in the list. */
+	throw ("Game::masterObjectLookup Object not found.");
 }
 
 void Game::printFullDescription()
@@ -121,7 +130,7 @@ void Game::printFullDescription()
 
 void Game::createObjects()
 {
-	createObject("water bottle",													/* name		   */
+	createObject("water",													/* name		   */
 				"Water is cool, refreshing, and necessary for life.");				/* description */
 
 	createObject("sword",															/* name		   */
@@ -168,18 +177,10 @@ void Game::executeMoveGet(std::string objectName)
 {
 	transform(objectName.begin(),objectName.end(),objectName.begin(),tolower);
 
-	try
-	{
-		pickUpObject(objectName);
-		printFullDescription();
-		return;
-	}
 
-	// The object isn't there.
-	catch (const char *msg)
-	{
-		std::cerr << msg << objectName << std::endl;
-	}
+	pickUpObject(objectName);
+	printFullDescription();
+	return;
 }
 
 void Game::uiGetMove()
@@ -213,8 +214,75 @@ void Game::printIntro()
 	std::cout << "Welcome to hell." << std::endl << std::endl;
 }
 
+void Game::placeObjects(std::vector<std::string> objectList, std::string locationName)
+{
+	for (std::vector<std::string>::iterator it = objectList.begin(); it != objectList.end(); ++it)
+	{
+		placeObject(*it, locationName);
+	}
+}
+
+Location *Game::masterLocationLookup(const std::string locationName)
+{
+	Location *pTempLocation;
+	for (std::vector<Area>::iterator it = country.begin(); it != country.end(); ++it)
+	{
+			pTempLocation = (*it).lookupLocationHere(locationName);
+			if (pTempLocation != &((*it).getNullLocation()))
+			{
+				return pTempLocation;
+			}
+	}
+
+	/* If the location was not found in the list. */
+	throw ("Game::masterLocationLookup: Location not found.");
+}
+
+void Game::populateCountry()
+{
+	Area startArea;
+	/* Where "startArea" is an "Area" -- get rid of all this inheritance nonsense */
+	startArea.createLocation("moisture farm",					  /* name		  */
+		"This moisture farm is designed to harvest water particulates in the air. \
+It and the farms like it are the most precious resource in the world.",			  
+																  /* description  */
+		FARM_LOCATION_VALUE / STARTING_AREA_MAX_ROW,              /* row          */
+		FARM_LOCATION_VALUE % STARTING_AREA_MAX_ROW);             /* col          */
+
+	startArea.createLocation("water tower",					      /* name		  */
+		"This water tower is used by the farm for storage",	      /* description  */
+		TOWER_LOCATION_VALUE / STARTING_AREA_MAX_ROW,             /* row          */
+		TOWER_LOCATION_VALUE % STARTING_AREA_MAX_ROW);            /* col          */
+
+	startArea.createLocation("barren waste",					  /* name		  */
+		"It is barren. And a waste.",	                          /* description  */
+		WASTE_LOCATION_VALUE / STARTING_AREA_MAX_ROW,             /* row          */
+		WASTE_LOCATION_VALUE % STARTING_AREA_MAX_ROW);            /* col          */
+
+	startArea.createLocation("mountain",					      /* name		  */
+		"This mountain is probably impassable. So how are you here?",	                                  /* description  */
+		MOUNTAIN_LOCATION_VALUE / STARTING_AREA_MAX_ROW,          /* row          */
+		MOUNTAIN_LOCATION_VALUE % STARTING_AREA_MAX_ROW);         /* col          */
+
+	country.push_back(startArea);
+	return;
+}
+
+void Game::createArea(std::vector<Location> locationMap)
+{
+	Area newArea;
+	int i = 0;
+	for (std::vector<Location>::iterator it = locationMap.begin(); it != locationMap.end(); ++it)
+	{
+		newArea.addLocationToLocationMap((it->getRow()),(it->getCol()), *it);
+		i++;
+	}
+	country.push_back(newArea);
+}
+
 int main(int argc, char** argv)
 {
 	Game game;
+
 	return 0;
 }

@@ -12,7 +12,7 @@ Object *Location::lookupObjectHere(std::string objectName)
 	}
 
 	/* If object was not in the list */
-	throw ("You can't see a ");
+	throw ("You can't see that here.");
 }
 
 /* Public functions */
