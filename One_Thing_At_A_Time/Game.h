@@ -15,6 +15,7 @@ private:
 	std::vector<Object *> masterObjectList;
 	std::vector<Object *> startingEquipment;
 	std::vector<Area> country;
+	std::vector<Character *> characterList;
 	PC pc;
 	Area *pCurrentArea;
 	Location *pCurrentLocation;
@@ -31,6 +32,7 @@ private:
 	void populateCountry();
 	Object *masterObjectLookup(const std::string objectName);
 	Location *masterLocationLookup(const std::string locationName);
+	Character *masterCharacterLookup(const std::string characterName);
 
 public:
 	Game();
@@ -41,6 +43,12 @@ public:
 	void createObject(std::string name, std::string description) { masterObjectList.push_back(new Object(name, description)); }
 	void placeObject(std::string objectName, std::string locationName) { masterLocationLookup(locationName)->pushObject(masterObjectLookup(objectName)); }
 	void placeObjects(std::vector<std::string> objectList, std::string locationName);
+	void populateInventory(std::vector<std::string> objectList, std::string inputCharacter);
+	void giveObject(std::string inputObject, std::string character);
+
+	/* Character */
+	void createCharacter(std::string inputName, std::string inputStatus); // TODO: Create a new character, give him the name and status,
+																		  // and push him back onto the characterList
 
 	/* Area */
 	void createArea(std::vector<Location> locationMap);

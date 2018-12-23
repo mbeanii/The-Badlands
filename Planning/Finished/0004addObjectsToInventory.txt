@@ -1,0 +1,13 @@
+X Write a function which takes a string with the name of a character and a vector of object strings, 
+looks up the character and objects, and places them in the character's inventory.
+
+Wrote this, but when debugging it, the inventory items are not making it to the pc inventory.
+
+Looks like I've got two different PCs - one in the character list, and one in Game... I suspect I'll want
+to get rid of the PC at the Game scope. This may solve it.
+
+I need to fix the character virtual function inheritance to ensure the pc's correct function is getting called.
+
+I fixed it by putting the PC back into the Game -- because it's a PC and not just a Character, it can't be
+stored in a vector of Characters, rather it should be pointed to by a vector of character pointers. There
+should be a vector of Characters as well that store the non-PC characters. This one is done.

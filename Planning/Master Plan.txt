@@ -33,10 +33,11 @@ error there. It should throw an exception rather than the assert (for learning).
 The error code was entirely unnecessary after implementing the exception. The error code was removed.
 X Write a function in Game which takes a location and vector of object strings and a location, looks up the 
 objects, and places them in the location.
+X Write a function which takes a character and a vector of object strings, looks up the objects, and places
+them in the character's inventory.
     - Write a function which parses a string, taking comma separated values, looking each of them up by name, 
 and returning a vector of objects with their names
-- Write a function which takes a character and a vector of object strings, looks up the objects, and places
-them in the character's inventory.
+    - Utilize this function to streamline placeObjects and populateInventory.
 - Maybe there's a storage container object. Maybe some you can get (box, bag of holding, etc.),
 and some you can't (barrel, chest, infinite void, etc.) They should be implemented so you
 can get an object from them by name, e.g., "get necklace from box", or so that you can browse
@@ -76,7 +77,7 @@ their game without having to worry about the icky engine implementation details.
 set. Variable. Set. Print. Sounds like a li'l baby intro class may be in order.
 
 User Interface:
-- Fix up print inventory. Perhaps an easy way to do it would be to change it so it just says:
+X Fix up print inventory. Perhaps an easy way to do it would be to change it so it just says:
     Inventory:
 - water
 - sword
@@ -87,6 +88,8 @@ User Interface:
 .
 .
 etc.
+Fixed. But not in this way. I just changed the end of string check to compare addresses instead of object
+equivalence, which is what was breaking my program.
 - Implement "examine" or "x" command to return the description of an object either in your 
 inventory or in the current location; the description of the current location (also, "look");
 or the description of a character (including "x self")
