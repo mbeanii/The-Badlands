@@ -31,8 +31,10 @@ Or an exception should be thrown.
 X Change this so it returns an error code instead and is handled at the next level (ie, throws an
 error there. It should throw an exception rather than the assert (for learning).
 The error code was entirely unnecessary after implementing the exception. The error code was removed.
-- Write a function in Game which takes a location and vector of object strings and a location, looks up the 
+X Write a function in Game which takes a location and vector of object strings and a location, looks up the 
 objects, and places them in the location.
+    - Write a function which parses a string, taking comma separated values, looking each of them up by name, 
+and returning a vector of objects with their names
 - Write a function which takes a character and a vector of object strings, looks up the objects, and places
 them in the character's inventory.
 - Maybe there's a storage container object. Maybe some you can get (box, bag of holding, etc.),
@@ -73,7 +75,18 @@ their game without having to worry about the icky engine implementation details.
 - Edit printIntro to utilize an intro string variable in the game class that the customer should be able to
 set. Variable. Set. Print. Sounds like a li'l baby intro class may be in order.
 
-Commands:
+User Interface:
+- Fix up print inventory. Perhaps an easy way to do it would be to change it so it just says:
+    Inventory:
+- water
+- sword
+- cat
+- sword
+- cat
+.
+.
+.
+etc.
 - Implement "examine" or "x" command to return the description of an object either in your 
 inventory or in the current location; the description of the current location (also, "look");
 or the description of a character (including "x self")

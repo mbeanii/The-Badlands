@@ -1,9 +1,12 @@
 X Write a function in Game which takes a location and vector of object strings and a location string, looks 
 up the objects, looks up the location and places the objects in the location.
-X Drastically change Areas - startArea shouldn't have its own class, it should be an instance of a
-class, presumably created at the Game level.
 - Utilize this function in the default game constructor. This may require structural edits to Area, which
 is the first item under Area in the master plan txt file.
+X Drastically change Areas - startArea shouldn't have its own class, it should be an instance of a
+class, presumably created at the Game level.
+
+12/22/2018 This one is done... It will be enhanced later with the lookup functionality, but for now, it just
+needs to be pushed and merged.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The following item from the Master Plan is being added to the scope of this story:
 X Drastically change Areas - startArea shouldn't have its own class, it should be an instance of a

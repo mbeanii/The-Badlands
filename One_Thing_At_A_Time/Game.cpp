@@ -59,7 +59,7 @@ Game::Game()
 	// DEFINE CHARACTERS
 	try
 	{
-		startingEquipment.push_back(masterObjectLookup("water bottle"));
+		startingEquipment.push_back(masterObjectLookup("water"));
 
 		pc.setInventory(startingEquipment);
 
@@ -69,6 +69,13 @@ Game::Game()
 
 		//startArea.mountain.pushObject(masterObjectLookup("cat")); // TODO change object push
 		placeObject("cat", "mountain");
+
+		std::vector<std::string> objectVector;
+		objectVector.push_back("cat");
+		objectVector.push_back("sword");
+		objectVector.push_back("water");
+
+		placeObjects(objectVector, "water tower");
 	}
 	catch (char *msg)
 	{
@@ -123,7 +130,7 @@ void Game::printFullDescription()
 
 void Game::createObjects()
 {
-	createObject("water bottle",													/* name		   */
+	createObject("water",													/* name		   */
 				"Water is cool, refreshing, and necessary for life.");				/* description */
 
 	createObject("sword",															/* name		   */
