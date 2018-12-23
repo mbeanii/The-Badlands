@@ -8,6 +8,7 @@
 class Character
 {
 private:
+	std::string name;
 	std::string status;
 	std::vector<Object*> inventory;
 public:
@@ -15,18 +16,25 @@ public:
 	/* Accessors */
 	const std::string & getStatus() { return status; };
 	std::vector<Object*> & getInventory() { return inventory; };
+	std::string getName() { return name; };
 
 	/* Mutators */
 	void setStatus(std::string lhs) { status = lhs; };
 	void setInventory(std::vector<Object*> inputInventory) { inventory = inputInventory; };
 	void pushInventory(Object *inputObject) { inventory.push_back(inputObject); };
+	void setName(std::string inputName) { name = inputName; };
+
+	// Virtual Utilities
+	virtual void printInventory() {};
+	virtual void printStatus() {};
 };
 
 class PC : public Character
 {
 public:
-	PC() { setStatus("dirty"); }
+	PC() { setName("pc"), setStatus("dirty"); }
 
-	void printPCStatus() { std::cout << "You are " << getStatus() << "." << std::endl; }
+	// Virtual Utilities
+	void printStatus() { std::cout << "You are " << getStatus() << "." << std::endl; }
 	void printInventory();
 };

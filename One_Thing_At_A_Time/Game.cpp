@@ -59,9 +59,15 @@ Game::Game()
 	// DEFINE CHARACTERS
 	try
 	{
-		startingEquipment.push_back(masterObjectLookup("water"));
+		characterList.push_back(&pc);
+		// startingEquipment.push_back(masterObjectLookup("water"));
+		// pc.setInventory(startingEquipment);
+		std::vector<std::string> objectNames;
+		objectNames.push_back("water");
+		objectNames.push_back("sword");
+		populateInventory(objectNames, "pc");
 
-		pc.setInventory(startingEquipment);
+
 
 	// PLACE OBJECTS
 		//startArea.farm.pushObject(masterObjectLookup("sword")); // TODO change object push to placeObject("sword", "farm");
@@ -122,15 +128,15 @@ void Game::printFullDescription()
 	std::cout << std::endl;
 	pCurrentLocation->printLocationName();
 	pCurrentArea->printLocationDescription(pCurrentLocation);
-	pc.printPCStatus();
+	masterCharacterLookup("pc")->printStatus();
 	pCurrentArea->printSurroundings(pCurrentLocation);
 	pCurrentArea->printObjectsHere(pCurrentLocation);
-	pc.printInventory();
+	masterCharacterLookup("pc")->printInventory();
 }
 
 void Game::createObjects()
 {
-	createObject("water",													/* name		   */
+	createObject("water",															/* name		   */
 				"Water is cool, refreshing, and necessary for life.");				/* description */
 
 	createObject("sword",															/* name		   */
@@ -168,7 +174,7 @@ void Game::executeMove()
 void Game::pickUpObject(std::string objectName)
 {
 	// Remove it from the location and add it to the pc's inventory.
-	pc.pushInventory(pCurrentLocation->lookupObjectHere(objectName));
+	giveObject(pCurrentLocation->lookupObjectHere(objectName)->getName(), "pc");
 	pCurrentLocation->removeObject(objectName);
 }
 
@@ -236,6 +242,34 @@ Location *Game::masterLocationLookup(const std::string locationName)
 
 	/* If the location was not found in the list. */
 	throw ("Game::masterLocationLookup: Location not found.");
+}
+
+Character *Game::masterCharacterLookup(const std::string characterName)
+{
+	for (std::vector<Character *>::iterator it = characterList.begin(); it != characterList.end(); ++it)
+	{
+		if ((*it)->getName() == characterName)
+		{
+			return *it;
+		}
+	}
+
+	/* If the location was not found in the list. */
+	throw ("Game::masterLocationLookup: Location not found.");
+}
+
+void Game::populateInventory(std::vector<std::string> objectList, std::string inputCharacter)
+{
+	for (std::vector<std::string>::iterator it = objectList.begin(); it != objectList.end(); ++it)
+	{
+		giveObject(*it, inputCharacter);
+	}
+}
+
+void Game::giveObject(std::string inputObject, std::string inputCharacter)
+{
+	Character *pCharacter = masterCharacterLookup(inputCharacter);
+	pCharacter->pushInventory(masterObjectLookup(inputObject));
 }
 
 void Game::populateCountry()
