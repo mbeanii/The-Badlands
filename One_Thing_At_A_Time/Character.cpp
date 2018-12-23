@@ -13,11 +13,11 @@ void PC::printInventory()
 			if (&(*(++it)) == &(getInventory().back()))	// Temporarily increment it to check the next item.
 			{
 				std::cout << " and a ";
-				--it;								// Reverse temporary increment.
+				--it;									// Reverse temporary increment.
 			}
 			else
 			{
-				--it;								// Reverse temporary increment.
+				--it;									// Reverse temporary increment.
 				std::cout << ", a ";
 			}
 		}
