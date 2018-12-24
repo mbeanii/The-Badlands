@@ -1,0 +1,142 @@
+Character:
+X Introduce attributes, skills, powers, abilities, experience points, etc.
+
+Name
+Status (Perhaps an enum here -- Look up some possible statuses, ie, burned, poisoned, frozen, disoriented,
+confused, unconcious, bleeding, etc.)
+Experience Points
+Level
+
+X Use Status_Type
+
+Strength
+Dexterity
+Intelligence
+Health
+
+Hit Points
+Speed
+Melee Accuracy
+Melee Damage
+Ranged Accuracy
+Ranged Damage
+
+(dead and stuck will be statuses)
+
+X Special Ability (struct)
+    Name
+    Target (self, single target, area effect, group, environment - perhaps an enum here)
+    Effect
+        Stats affected (Vector<Enum containing None, Strength, Dexterity, Intelligence, Health, Melee 
+Accuracy, Ranged Accuracy, Ranged Damage, Speed, isStuck>)
+        Duration (turns)
+        Damage
+    Uses/day
+
+X Skill class:
+    Name
+    int skillLevel
+    Target (self, single target, area effect, group, location, feature - perhaps an enum here)
+    Effect
+        Stats affected (Vector<Enum containing None, Strength, Dexterity, Intelligence, Health, Melee 
+Accuracy, Ranged Accuracy, Ranged Damage, Speed, isStuck>)
+        Duration (turns)
+        Damage
+    vector<Item> requiredItems
+    bool consumesItems
+    Feature requiredFeature - fishing pond, lock(ed door/cabinet, etc.)
+    virtual void useSkill()
+
+Sneak Attack
+Hunting
+Fishing
+Foarging
+Potion Making
+Alchemy
+Crafting
+Picking Pockets
+Magic/Powers
+Charm Animal
+etc.
+
+- How to do a "the next attack" as in "the next attack is triple damage" after a 
+- How do "normal" attacks work?
+
+- Classes
+
+    
+- Create getters and setters for each of those.
+- Create a constructor with values for each of these
+- Call the constructor from the Game default constructor
+- Modify the print stats function to print them
+- Implement "x self"
+- Implement "x <character"
+- Implement "x <object>"
+
+Derived traits vs base traits.
+
+Base traits:
+st, dx, iq, ht
+
+Derived traits:
+hp (st) 
+speed (ht)
+meleeAcc (st/dx)
+meleeDmg (st + <weapon>)
+rangedAcc (dx)
+rangedDmg (<weapon>)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+What will be reasonable ranges for things?
+
+    level
+Start at level 1.
+11 is the highest.
+Leveling up:
+- Add one to a base trait (total of 11 possible added)
+- Learn/improve a skill? How do skills work? ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- Divide a number of points among derived traits as bonuses (This increases as they level up)
+
+Derived Bonus Points | Level
+LVL| BONUS
+01 | 0
+02 | 1
+03 | 2
+04 | 2
+05 | 3
+06 | 3
+07 | 4
+08 | 4
+09 | 5
+10 | 5
+11 | 6
+
+35 Total additional points
+
+Base traits:
+st, dx, iq, ht
+
+    experience points
+What about if you get a point per level of thing you kill? 1 pt for a Level 1, 2 for L2, etc.
+Finishing a small side quest might be worth 3 xp
+Finishing a main plot quest might be worht 10 xp
+
+LVL|   EXP
+01 |     0
+02 |    10
+03 |    30
+04 |    70
+05 |   150
+06 |   310
+07 |   630
+08 |  1270
+09 |  2550
+10 |  5110
+11 | 10230
+
+    hp
+hp for a normal dude would be like 3 probably.
+Maybe 1 for a child...
+Would I ever need floats for computations or something? No. Not gonna do it.
+A super boss might have a few hundred hit points. Like a dragon or something.
+For the pc, a range of 8 (first level caster) to ~100 (nth level paladin)

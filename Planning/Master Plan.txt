@@ -12,6 +12,7 @@ The Engine:
 
     - Events
     - Effect Parser
+    - Quests
 ==================================================================================================
 
 Random:
@@ -81,21 +82,9 @@ appropriate lists. Include exception handling here too.
 their game without having to worry about the icky engine implementation details. 
 - Edit printIntro to utilize an intro string variable in the game class that the customer should be able to
 set. Variable. Set. Print. Sounds like a li'l baby intro class may be in order.
+- Include a turn variable. Increment turn every cycle of the loop.
 
-User Interface:
-X Fix up print inventory. Perhaps an easy way to do it would be to change it so it just says:
-    Inventory:
-- water
-- sword
-- cat
-- sword
-- cat
-.
-.
-.
-etc.
-Fixed. But not in this way. I just changed the end of string check to compare addresses instead of object
-equivalence, which is what was breaking my program.
+Commands:
 - Implement "examine" or "x" command to return the description of an object either in your 
 inventory or in the current location; the description of the current location (also, "look");
 or the description of a character (including "x self")
@@ -105,7 +94,7 @@ or the description of a character (including "x self")
 - Permissions, error handling, documentation.
 
 Character:
-- printInventory: Troubleshoot picking up multiple of the same item "catcat"
+X printInventory: Troubleshoot picking up multiple of the same item "catcat"
 - Equiping items
 - Attributes, skills, powers, abilities, experience points, etc.
 - Combat
@@ -140,6 +129,8 @@ between areas.
     - Buildings you have visited to your location map?
     - Rooms you have visited to your building map (ie, Legend of Zelda dungeons?)
 - Fast Travel - probably from the map
+- Add "Features" - fishing pond, crafting table, bed, etc. Skills/actions may depend on the presence of
+a certain "feature."
 
 Events?
 - Combat
@@ -161,3 +152,6 @@ Should be usable by:
         - equippable weapons with effects on a target
             - Weapons with special hit effects (e.g., posion arrows, flaming sword, etc.)
             - Items with a special use/property (e.g., ring of webs, etc.)
+
+Quests:
+Figure these out.
