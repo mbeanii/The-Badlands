@@ -35,9 +35,9 @@ X Write a function in Game which takes a location and vector of object strings a
 objects, and places them in the location.
 X Write a function which takes a character and a vector of object strings, looks up the objects, and places
 them in the character's inventory.
-    - Write a function which parses a string, taking comma separated values, looking each of them up by name, 
+    X Write a function which parses a string, taking comma separated values, looking each of them up by name, 
 and returning a vector of objects with their names
-    - Utilize this function to streamline placeObjects and populateInventory
+    X Utilize this function to streamline placeObjects and populateInventory
 - Maybe there's a storage container object. Maybe some you can get (box, bag of holding, etc.),
 and some you can't (barrel, chest, infinite void, etc.) They should be implemented so you
 can get an object from them by name, e.g., "get necklace from box", or so that you can browse
@@ -48,6 +48,12 @@ e.g., "This sword is lodged in the rocky crag of the cliffside - it looks like i
 free with a little effort... if only you could climb up to it."
 Then once obtained and forever after,
 "This plain steel sword is a sharp and formidable weapon."
+- Seperate one shot items, equippable items, special items
+    - One shots are like potions: used and gone. Applies an effect, which may be temporary. Usable on self
+or on a target.
+    - Equippable items: weapons, armor, etc. Applies a permanant effect while the object is in use.
+    - Special items - keys, crystal balls, hall pass, etc. Interacts with the world in some way. Interacts
+with "events." May change the way the world works.
 
 Game:
 - Investigate //DEFINE LOCATIONS section of the Game() default constructor. Think about

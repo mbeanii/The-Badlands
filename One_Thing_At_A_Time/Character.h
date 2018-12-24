@@ -12,6 +12,9 @@ private:
 	std::string status;
 	std::vector<Object*> inventory;
 public:
+	/* Constructors */
+	Character() {};
+	Character(std::string inputName, std::string inputStatus) : name(inputName), status(inputStatus) {};
 
 	/* Accessors */
 	const std::string & getStatus() { return status; };

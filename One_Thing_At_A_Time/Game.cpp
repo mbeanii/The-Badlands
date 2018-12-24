@@ -41,7 +41,6 @@
 
 Game::Game()
 {
-
 	// POPULATE COUNTRY
 	populateCountry();
 
@@ -59,12 +58,12 @@ Game::Game()
 	// DEFINE CHARACTERS
 	try
 	{
-		characterList.push_back(&pc);
+		masterCharacterList.push_back(&pc);
 		// startingEquipment.push_back(masterObjectLookup("water"));
 		// pc.setInventory(startingEquipment);
 		populateInventory("water, sword", "pc");
 
-
+		createCharacter("Bob", "hungry"); // TODO: Place Bob somewhere. Print that Bob is there. Eventually fight Bob.
 
 	// PLACE OBJECTS
 		//startArea.farm.pushObject(masterObjectLookup("sword")); // TODO change object push to placeObject("sword", "farm");
@@ -239,7 +238,7 @@ Location *Game::masterLocationLookup(const std::string locationName)
 
 Character *Game::masterCharacterLookup(const std::string characterName)
 {
-	for (std::vector<Character *>::iterator it = characterList.begin(); it != characterList.end(); ++it)
+	for (std::vector<Character *>::iterator it = masterCharacterList.begin(); it != masterCharacterList.end(); ++it)
 	{
 		if ((*it)->getName() == characterName)
 		{
@@ -334,15 +333,6 @@ std::vector<std::string> Game::parseObjectString(std::string inputString)
 	returnStringVector.push_back(tempString);
 	return returnStringVector;
 }
-	// Traverse the string character by character
-		// While the character is not a comma
-			// Set tempString to an empty string
-			// Walk the string until the comma, writing to tempString as you go
-		// Push tempString to the vector
-		// Increment the variable past the comma
-		// If the next character is a space
-			// Increment the variable past the space
-
 
 int main(int argc, char** argv)
 {
