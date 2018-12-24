@@ -62,10 +62,7 @@ Game::Game()
 		characterList.push_back(&pc);
 		// startingEquipment.push_back(masterObjectLookup("water"));
 		// pc.setInventory(startingEquipment);
-		std::vector<std::string> objectNames;
-		objectNames.push_back("water");
-		objectNames.push_back("sword");
-		populateInventory(objectNames, "pc");
+		populateInventory("water, sword", "pc");
 
 
 
@@ -76,12 +73,7 @@ Game::Game()
 		//startArea.mountain.pushObject(masterObjectLookup("cat")); // TODO change object push
 		placeObject("cat", "mountain");
 
-		std::vector<std::string> objectVector;
-		objectVector.push_back("cat");
-		objectVector.push_back("sword");
-		objectVector.push_back("water");
-
-		placeObjects(objectVector, "water tower");
+		placeObjects("cat, water, sword", "water tower");
 	}
 	catch (char *msg)
 	{
@@ -220,8 +212,9 @@ void Game::printIntro()
 	std::cout << "Welcome to hell." << std::endl << std::endl;
 }
 
-void Game::placeObjects(std::vector<std::string> objectList, std::string locationName)
+void Game::placeObjects(std::string inputString, std::string locationName)
 {
+	std::vector<std::string> objectList = parseObjectString(inputString);
 	for (std::vector<std::string>::iterator it = objectList.begin(); it != objectList.end(); ++it)
 	{
 		placeObject(*it, locationName);
@@ -258,8 +251,9 @@ Character *Game::masterCharacterLookup(const std::string characterName)
 	throw ("Game::masterLocationLookup: Location not found.");
 }
 
-void Game::populateInventory(std::vector<std::string> objectList, std::string inputCharacter)
+void Game::populateInventory(std::string inputString, std::string inputCharacter)
 {
+	std::vector<std::string> objectList = parseObjectString(inputString);
 	for (std::vector<std::string>::iterator it = objectList.begin(); it != objectList.end(); ++it)
 	{
 		giveObject(*it, inputCharacter);
@@ -313,6 +307,42 @@ void Game::createArea(std::vector<Location> locationMap)
 	}
 	country.push_back(newArea);
 }
+
+std::vector<std::string> Game::parseObjectString(std::string inputString)
+{
+	std::string tempString("");
+	std::vector<std::string> returnStringVector;
+	for (int i = 0; i != inputString.length(); i++)
+	{
+		if (inputString[i] != ',')
+		{
+			tempString += inputString[i];
+		}
+		else
+		{
+			returnStringVector.push_back(tempString);
+			tempString = "";
+
+			// Skip the space
+			i++;
+			if (inputString[i] != ' ')
+			{
+				i--;
+			}
+		}
+	}
+	returnStringVector.push_back(tempString);
+	return returnStringVector;
+}
+	// Traverse the string character by character
+		// While the character is not a comma
+			// Set tempString to an empty string
+			// Walk the string until the comma, writing to tempString as you go
+		// Push tempString to the vector
+		// Increment the variable past the comma
+		// If the next character is a space
+			// Increment the variable past the space
+
 
 int main(int argc, char** argv)
 {

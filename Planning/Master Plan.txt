@@ -37,7 +37,7 @@ X Write a function which takes a character and a vector of object strings, looks
 them in the character's inventory.
     - Write a function which parses a string, taking comma separated values, looking each of them up by name, 
 and returning a vector of objects with their names
-    - Utilize this function to streamline placeObjects and populateInventory.
+    - Utilize this function to streamline placeObjects and populateInventory
 - Maybe there's a storage container object. Maybe some you can get (box, bag of holding, etc.),
 and some you can't (barrel, chest, infinite void, etc.) They should be implemented so you
 can get an object from them by name, e.g., "get necklace from box", or so that you can browse

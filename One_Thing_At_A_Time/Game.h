@@ -34,6 +34,9 @@ private:
 	Location *masterLocationLookup(const std::string locationName);
 	Character *masterCharacterLookup(const std::string characterName);
 
+	// Takes an input string with comma seperated names of object strings and returns a vector of object strings
+	std::vector<std::string> parseObjectString(std::string inputString);
+
 public:
 	Game();
 
@@ -42,9 +45,10 @@ public:
 	/* Object */
 	void createObject(std::string name, std::string description) { masterObjectList.push_back(new Object(name, description)); }
 	void placeObject(std::string objectName, std::string locationName) { masterLocationLookup(locationName)->pushObject(masterObjectLookup(objectName)); }
-	void placeObjects(std::vector<std::string> objectList, std::string locationName);
-	void populateInventory(std::vector<std::string> objectList, std::string inputCharacter);
+	void placeObjects(std::string inputString, std::string locationName);
+	void populateInventory(std::string inputString, std::string inputCharacter);
 	void giveObject(std::string inputObject, std::string character);
+
 
 	/* Character */
 	void createCharacter(std::string inputName, std::string inputStatus); // TODO: Create a new character, give him the name and status,

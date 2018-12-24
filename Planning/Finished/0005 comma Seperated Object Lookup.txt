@@ -1,0 +1,17 @@
+    X Write a function which parses a string, taking comma separated values, and returning a vector of 
+strings
+    X Utilize this function to streamline placeObjects and populateInventory
+
+std::vector<std::string> parseObjectString(std::string)
+{
+    // Traverse the string character by character
+        // While the character is not a comma
+            // Set tempString to an empty string
+            // Walk the string until the comma, writing to tempString as you go
+        // Push tempString to the vector
+        // Increment the variable past the comma
+        // If the next character is a space
+            // Increment the variable past the space
+}
+
+Done. Implemented. Tested. Works great.
