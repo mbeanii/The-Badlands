@@ -63,7 +63,7 @@ Game::Game()
 		// pc.setInventory(startingEquipment);
 		populateInventory("water, sword", "pc");
 
-		createCharacter("Bob", "hungry"); // TODO: Place Bob somewhere. Print that Bob is there. Eventually fight Bob.
+		createCharacter("Bob", STATUS_HUNGRY); // TODO: Place Bob somewhere. Print that Bob is there. Eventually fight Bob.
 
 	// PLACE OBJECTS
 		//startArea.farm.pushObject(masterObjectLookup("sword")); // TODO change object push to placeObject("sword", "farm");

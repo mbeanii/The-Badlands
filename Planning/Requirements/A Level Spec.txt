@@ -1,0 +1,68 @@
+Requirements for The Badlands (working title) engine and game:
+
+- The Badlands Engine (TBE) shall be a portable RPG engine, capable of reuse
+by an RPG game with any characters, plot, and setting.
+
+- The Badlands Game (TBG) elements shall not be embedded within the engine.
+
+- TBG shall be implemented as a functional, playable example TBE application.
+
+- TBE shall provide a notional framework of its elements without dictating the
+specifics.
+
+- TBE shall provide public APIs for each element's creation and access as well
+as creation and access of each element's constituent parts.
+
+- TBE shall provide public APIs for the interaction of various elements.
+
+- The following elements shall be implemented within TBE:
+   * Map
+      * Places
+         * Planet
+         * Country
+         * Area
+         * Location
+         * Enclosure
+         * Room
+      * Features
+         * Chests
+         * Doors
+            * Unlocked
+            * Locked
+         * Terrain
+         * Weather
+         * Roads
+         * Transportation
+         * Quests
+         * Events
+         * Combat
+         * Characters/Objects present
+   * Characters
+      * Types
+         * Player Character (PC)
+         * Party Playable Characters (PPCs)
+         * Non-player Character (NPC)
+            * Hostile Sentients
+            * Animals
+            * Monsters
+            * Civilian
+            * Merchant
+      * Stats
+      * Classes
+      * Abilities
+      * Attacks
+      * Actions
+   * Objects
+      * Equippable
+      * Quest Items
+      * Single use
+      * Containers
+      * Ammunition
+      * Currency
+   * Commands
+      * Navigating
+      * Checking inventory
+      * Using items
+      * Speech
+      * Event-specific
+      * Combat-specific

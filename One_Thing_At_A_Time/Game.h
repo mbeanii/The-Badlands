@@ -5,7 +5,7 @@
 
 #include "Area.h"
 #include "Location.h"
-#include "Character.h"
+#include "Game_Character.h"
 
 /* Classes */
 
@@ -51,7 +51,7 @@ public:
 
 
 	/* Character */
-	void createCharacter(std::string inputName, std::string inputStatus) { masterCharacterList.push_back(new Character(inputName, inputStatus)); };
+	void createCharacter(std::string inputName, Status_Type inputStatus) { masterCharacterList.push_back(new Character(inputName, inputStatus)); }
 
 	/* Area */
 	void createArea(std::vector<Location> locationMap);

@@ -13,19 +13,34 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Application Level">
+      <UniqueIdentifier>{c8e962f2-a749-46f9-8193-44436a6d5110}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Application Level">
+      <UniqueIdentifier>{2805e41d-4874-45eb-8232-3f9f6b417ce0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\API Level">
+      <UniqueIdentifier>{d5eab6c5-4696-4896-af8a-5631f19aa000}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\API Level">
+      <UniqueIdentifier>{c8775a32-f079-4f8f-a1be-94ede6aba1d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Location.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Application Level</Filter>
     </ClCompile>
     <ClCompile Include="Area.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\API Level</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Character.cpp">
+      <Filter>Source Files\API Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Location.cpp">
+      <Filter>Source Files\API Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Game_Character.cpp">
+      <Filter>Source Files\Application Level</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -38,23 +53,26 @@
     <Text Include="Discussions.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Location.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\Application Level</Filter>
     </ClInclude>
     <ClInclude Include="Area.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\API Level</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Character.h">
+      <Filter>Header Files\API Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Location.h">
+      <Filter>Header Files\API Level</Filter>
     </ClInclude>
     <ClInclude Include="Map.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\API Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Header Files\API Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Game_Character.h">
+      <Filter>Header Files\Application Level</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

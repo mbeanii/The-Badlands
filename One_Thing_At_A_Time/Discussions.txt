@@ -81,3 +81,5 @@ Seer or something - psyonic abilities.
 
 [Something] - Manipulates light. Force fields, magnification,
 etc.
+
+Texted for confirmation 2/2019: [Something = "Uvies"]

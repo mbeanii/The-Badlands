@@ -1,0 +1,11 @@
+
+Can a location be both a location and an area??
+
+Inheritance -- An area inherits the location class and adds some more to it...
+So if you create it as an area....
+
+What if they're not even different structures? Right, so what if a locations are like
+linked lists that link not only forward and backward, but optionally wherever... Right?
+Then it's pretty easy to get from one area to another -- just add another link.
+
+void createLocation(Area area, 
