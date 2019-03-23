@@ -1,0 +1,61 @@
+Map:
+prototype: void createPlace(enum placeType placeType, 
+call: 
+
+enum PLANET_TYPE{
+   PLANET_A,
+   PLANET_B1,
+   MAX_PLANET
+};
+
+enum COUNTRY_TYPE{
+   DEFAULT_COUNTRY,
+   MAX_COUNTRY
+};
+
+enum AREA_TYPE{
+   DEFAULT_AREA,
+   MAX_AREA
+};
+
+enum LOCATION_TYPE{
+   DEFAULT_LOCATION,
+   MAX_LOCATION
+};
+
+enum ENCLOSURE_TYPE{
+   DEFAULT_ENCLOSURE,
+   MAX_ENCLOSURE
+};
+
+enum ROOM_TYPE{
+   DEFAULT_ROOM,
+   MAX_ROOM
+};
+
+universeArray[1][MAX_PLANET][MAX_COUNTRY][MAX_AREA][MAX_LOCATION][MAX_ENCLOSURE][MAX_ROOM] = {
+{ PLANET_A
+   { DEFAULT_COUNTRY 
+      { DEFAULT_AREA 
+         { DEFAULT_LOCATION 
+            { DEFAULT_ENCLOSURE 
+               { DEFAULT_ROOM }
+               }
+            }
+         }
+      }
+   },
+{PLANET_B 
+   {DEFAULT_COUNTRY 
+      {DEFAULT_AREA 
+         {DEFAULT_LOCATION 
+            {DEFAULT_ENCLOSURE 
+               {DEFAULT_ROOM }
+               }
+            }
+         }
+      }
+   }
+};
+
+createPlace(PLANET_TYPE, universeArray);

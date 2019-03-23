@@ -5,7 +5,7 @@
 
 #include "Area.h"
 #include "Location.h"
-#include "Character.h"
+#include "Game_Character.h"
 
 /* Classes */
 

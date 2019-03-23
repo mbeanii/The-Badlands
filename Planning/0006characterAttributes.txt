@@ -59,13 +59,28 @@ Magic/Powers
 Charm Animal
 etc.
 
-- How to do a "the next attack" as in "the next attack is triple damage" after a 
-- How do "normal" attacks work?
+O How to do a "the next attack" as in "the next attack is triple damage" after an ability (Forestall)
+X How do "normal" attacks work?
+Included an enum for melee, ranged, special abilities, skills
 
 - Classes
-
+    Each class needs:
+    - A favored stat, from which most of his abilities stem
+    - signature weapons he performs better with (is this a proficiency thing? )
+    - Class-specific Skills/Special Abilities
+    - 
     
-- Create getters and setters for each of those.
+What about weapons proficiencies??
+None - just bonuses for using certain weapons your class favors.
+
+X Finish writing levelUp
+I wrote this, but it should be moved to the application (game) level.
+- Implement skills (write two skills at the top level)
+- Implement special abilities (write two special abilities at the top level)
+- Implement classes (write a class at the top level)
+X Create getters and setters for each of those.
+    X Finsh creating attack setters.
+    - Create attack getters (hasNormalAttack, etc, returning a bool for each).
 - Create a constructor with values for each of these
 - Call the constructor from the Game default constructor
 - Modify the print stats function to print them
