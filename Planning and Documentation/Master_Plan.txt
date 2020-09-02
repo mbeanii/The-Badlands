@@ -9,7 +9,7 @@ The Engine:
         - inventory (vector of pointers to objects)
     - Object (vector of pointers to Objects) masterObjectList
     - Command
-
+    - Combat
     - Events
     - Effect Parser
     - Quests
@@ -55,6 +55,9 @@ or on a target.
     - Equippable items: weapons, armor, etc. Applies a permanant effect while the object is in use.
     - Special items - keys, crystal balls, hall pass, etc. Interacts with the world in some way. Interacts
 with "events." May change the way the world works.
+- The printed object list should combine multiple copies of the same item, e.g., "You have 2 waters, and a
+sword" instead of "You have a water, a sword, and a water."
+- Examine ("x") command
 
 Game:
 - Investigate //DEFINE LOCATIONS section of the Game() default constructor. Think about
@@ -155,3 +158,7 @@ Should be usable by:
 
 Quests:
 Figure these out.
+
+Create a command list with all possible commands. It can just be a .txt notepad doc for now, just so it's
+documented so later it's easy to pull together all of the commands into a "help" command with the command
+explanations.

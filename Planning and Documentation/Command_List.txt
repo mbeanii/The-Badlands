@@ -1,0 +1,2 @@
+n/s/e/w - travel North/South/East/West
+get <object> - Pick up an object and add it to your inventory.

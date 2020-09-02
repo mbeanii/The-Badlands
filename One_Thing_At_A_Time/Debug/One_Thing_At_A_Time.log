@@ -1,8 +1,0 @@
-﻿  Game.cpp
-  Location.cpp
-  Game_Character.cpp
-  Character.cpp
-  Area.cpp
-  Generating Code...
-c:\users\marcus\git\the_badlands\one_thing_at_a_time\area.cpp(124): warning C4715: 'Area::lookupLocationHere': not all control paths return a value
-  One_Thing_At_A_Time.vcxproj -> C:\Users\Marcus\git\The_Badlands\Debug\One_Thing_At_A_Time.exe
