@@ -1,0 +1,60 @@
+An
+
+"Action"
+
+Should include:
+
+the string command
+
+AND
+
+the effect.
+
+What does the effect look like?
+
+Where will this be called?
+
+
+
+ParseCommand gets a
+
+"drink water" command.
+
+It sees there are two words.
+
+It identifies "water" as an object.
+
+It looks up the object "water"
+
+It finds the string "drink" in water's actionList, so it knows it's a valid command.
+
+It executes
+
+Every element in the actionList should have a corresponding "effect". How are these tied together?
+A "use" member function? The function would have to be unique to each... maybe not.
+
+What if the order of the actionList is what ties it to the effect.
+
+How about an:
+
+"actionList",
+"affectedAttributeList"
+"effectList" (e.g., "= 0", "+ 1", "= STATUS_QUENCHED", etc.)
+"printStringList"
+
+So picking up where I left off --
+
+parseCommand calls executeCommand, passing it the water object and the "drink" string
+
+executeCommand counts what number action "drink" is in water's actionList and saves this as num
+
+executeCommand gets the numth affectedAttribute from the affectedAttributeList
+
+executeCommand compares the affectedAttribute against a list of all possible attributes (each of the
+member variables of the Character class)
+
+executeCommand gets the numth effect from effectList
+
+If the first character is "=", executeCommand sets the affectedAttribute to the given value.
+
+If the first character is +, executeCommand increases the affectedAttribute by the given value.

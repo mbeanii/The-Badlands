@@ -1,0 +1,4 @@
+Implemented "north", "south", "east", and "west" full name commands as alternatives to the
+"n", "s", "e", "w" commands
+Added actionList attribute to Objects.
+Created "drinking_water.txt" which outlines how to implement Object usage.

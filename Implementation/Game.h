@@ -43,7 +43,7 @@ public:
 	/* Mutators */
 
 	/* Object */
-	void createObject(std::string inputName, std::string inputDescription) { masterObjectList.push_back(new Object(inputName, inputDescription)); }
+	void createObject(std::string inputName, std::string inputDescription, std::vector<std::string> inputActionList) { masterObjectList.push_back(new Object(inputName, inputDescription, inputActionList)); }
 	void placeObject(std::string objectName, std::string locationName) { masterLocationLookup(locationName)->pushObject(masterObjectLookup(objectName)); }
 	void placeObjects(std::string inputString, std::string locationName);
 	void populateInventory(std::string inputString, std::string inputCharacter);

@@ -15,7 +15,7 @@ Area::Area()
 		for (int j = 0; j < AREA_MAX_LOCATION_MAP_ROW_COL; j++)
 			locationMap[i][j] = nullLocation;
 }
-
+/* Returns true if there exists a location to the north. Otherwise, returns false. */
 inline bool Area::checkNorth(Location *pCurrentLocation)
 {
 	return (pCurrentLocation->getNextRow() < AREA_MAX_LOCATION_MAP_ROW_COL) ? !(locationMap[pCurrentLocation->getNextRow()][pCurrentLocation->getCol()].getName().empty()) : false;

@@ -19,7 +19,8 @@ enum Status_Type
 	STATUS_FROZEN,
 	STATUS_RECOILING,
 	STATUS_BLEEDING,
-	STATUS_HUNGRY
+	STATUS_HUNGRY,
+	STATUS_QUENCHED
 };
 
 enum Target_Type
@@ -48,6 +49,7 @@ enum Character_Stat_Type
 	STAT_MELEE_DMG,				/* Melee Damage			*/
 	STAT_RANGED_ACC,			/* Ranged Accuracy		*/
 	STAT_RANGED_DMG,			/* Ranged Damage		*/
+	STAT_ARMOR_CLASS,			/* Armor Class			*/
 	STAT_IS_STUCK,				/* Is Stuck				*/
 	STAT_IS_DEAD,				/* Is Dead				*/
 	STAT_MAX_CHARACTER_STAT		/* Maximum number		*/
@@ -84,6 +86,8 @@ struct DerivedStats
 	unsigned short rangedAcc;
 	/* Ranged Damage */
 	unsigned short rangedDmg;
+	/* Armor Class */
+	unsigned short armorClass;
 };
 
 struct SpecialAbility
@@ -148,7 +152,7 @@ private:
 	PrimaryStats primaryStats;
 
 	/* Derived Stats */
-	DerivedStats derivedStats; /* TODO: Add Armor Class */
+	DerivedStats derivedStats;
 
 	void calculateDerivedStats(); // TODO: Write this
 
@@ -189,6 +193,7 @@ public:
 	unsigned short getRangedAcc() { return derivedStats.rangedAcc; }
 	unsigned short getRangedDmg() { return derivedStats.rangedDmg; }
 	unsigned short getSpeed() { return derivedStats.speed; }
+	unsigned short getArmorClass() { return derivedStats.armorClass; }
 	std::vector<Skill *> getSkillList() { return skillList; }
 	std::vector<SpecialAbility *> getSpecialAbilityList() { return specialAbilityList; }
 	AttackEnables getAttacks() { return attacks; }
@@ -244,6 +249,7 @@ public:
 	void saveSpecialAbilityPoint() { savedCharacterPoints.specialAbility++; }
 	void healFull() { derivedStats.currentHp = derivedStats.maxHp; }
 	void healPartial(unsigned short inputHp) { derivedStats.currentHp += inputHp; }
+	void setArmorClass(unsigned short inputArmorClass) { derivedStats.armorClass = inputArmorClass; }
 
 	// Virtual Utilities
 	virtual void printInventory() {}

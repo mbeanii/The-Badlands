@@ -30,6 +30,7 @@
 #include <iterator>
 #include <sstream>   // for stringstream
 #include <assert.h> /* For assert */
+#include <locale>   /* For tolower() */
 
 /* Locally defined header files */
 #include "Character.h"
@@ -128,34 +129,41 @@ void Game::printFullDescription()
 void Game::createObjects()
 {
 	createObject("water",															/* name		   */
-				"Water is cool, refreshing, and necessary for life.");				/* description */
+				"Water is cool, refreshing, and necessary for life.",				/* description */
+				{"drink"});															/* actionList  */
 
 	createObject("sword",															/* name		   */
-				 "This crude blade is made from scraps of a worn-down building.");	/* description */
+				 "This crude blade is made from scraps of a worn-down building.",	/* description */
+				{ "equip" });														/* actionList  */
 
 	createObject("cat",																/* name		   */
-			   "This scrawny feral feline looks ready for a row.");					/* description */
+			   "This scrawny feral feline looks ready for a row.",					/* description */
+				{ "pet" });															/* actionList  */
 }
 
 //EXECUTE MOVE
 void Game::executeMove()
 {
-	if (command == "n" && pCurrentArea->checkNorth(pCurrentLocation))
+	if ((command == "n" && pCurrentArea->checkNorth(pCurrentLocation))
+		|| (command == "north" && pCurrentArea->checkNorth(pCurrentLocation)))
 	{
 		pCurrentLocation = pCurrentArea->getNorth(pCurrentLocation);
 		printFullDescription();
 	}
-	else if (command == "e" && pCurrentArea->checkEast(pCurrentLocation))
+	else if ((command == "e" && pCurrentArea->checkEast(pCurrentLocation))
+			|| (command == "east" && pCurrentArea->checkEast(pCurrentLocation)))
 	{
 		pCurrentLocation = pCurrentArea->getEast(pCurrentLocation);
 		printFullDescription();
 	}
-	else if (command == "s" && pCurrentArea->checkSouth(pCurrentLocation))
+	else if ((command == "s" && pCurrentArea->checkSouth(pCurrentLocation))
+			|| (command == "south" && pCurrentArea->checkSouth(pCurrentLocation)))
 	{
 		pCurrentLocation = pCurrentArea->getSouth(pCurrentLocation);
 		printFullDescription();
 	}
-	else if (command == "w" && pCurrentArea->checkWest(pCurrentLocation))
+	else if ((command == "w" && pCurrentArea->checkWest(pCurrentLocation))
+			|| (command == "west" && pCurrentArea->checkWest(pCurrentLocation)))
 	{
 		pCurrentLocation = pCurrentArea->getWest(pCurrentLocation);
 		printFullDescription();
@@ -188,8 +196,13 @@ void Game::uiGetMove()
 
 void Game::parseMove()
 {
-	if (command.length() == 1)
-		executeMove();
+
+
+	std::locale loc;
+	for (std::string::size_type i = 0; i < command.length(); ++i)
+	{
+		command[i] = std::tolower(command[i], loc);
+	}
 
 	std::stringstream ss(command);
 	std::string moveFirstWord = "";
@@ -202,8 +215,22 @@ void Game::parseMove()
 	ss >> moveThirdWord;
 	ss >> moveFourthWord;
 
+	if (
+		(moveFirstWord == "n" || moveFirstWord == "north")
+		|| (moveFirstWord == "s" || moveFirstWord == "south")
+		|| (moveFirstWord == "e" || moveFirstWord == "east")
+		|| (moveFirstWord == "w" || moveFirstWord == "west")
+		)
+	{
+		executeMove();
+	}
+
 	if (moveFirstWord == "get")
+	{
 		executeMoveGet(moveSecondWord);
+	}
+
+	return;
 }
 
 void Game::printIntro()

@@ -57,7 +57,7 @@ or on a target.
 with "events." May change the way the world works.
 - The printed object list should combine multiple copies of the same item, e.g., "You have 2 waters, and a
 sword" instead of "You have a water, a sword, and a water."
-- Examine ("x") command
+- Implement interaction with objects.
 
 Game:
 - Investigate //DEFINE LOCATIONS section of the Game() default constructor. Think about
@@ -92,7 +92,7 @@ Commands:
 inventory or in the current location; the description of the current location (also, "look");
 or the description of a character (including "x self")
 - Implement "look", "examine," or "x" to return the description of the current location.
-- Implement "north", "south", "east", and "west" full name commands as alternatives to the
+X Implement "north", "south", "east", and "west" full name commands as alternatives to the
 "n", "s", "e", "w" commands.
 - Permissions, error handling, documentation.
 
